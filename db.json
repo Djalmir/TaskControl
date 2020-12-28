@@ -1,0 +1,24 @@
+{
+	"lists": [
+		{
+			"id": 1,
+			"name": "Lista Teste",
+			"todos": [
+				{
+					"todo": "testar o app",
+					"done": false
+				}
+			]
+		},
+		{
+			"id": 2,
+			"name": "Asdf poiu qwer",
+			"todos": [
+				{
+					"todo": "lol lolzera lolzinho!",
+					"done": false
+				}
+			]
+		}
+	]
+}
