@@ -13,10 +13,22 @@ export default {
 	getLists() {
 		return api.get(`/lists`)
 	},
+	getListById(id) {
+		return api.get(`/lists/${id}`)
+	},
 	postList(name) {
 		return api.post('/lists', {
 			name: name,
 			todos: []
 		})
+	},
+	putList(id, name, todos) {
+		return api.put(`/lists/${id}`, {
+			name: name,
+			todos: todos
+		})
+	},
+	deleteList(id) {
+		return api.delete(`/lists/${id}`)
 	}
 }

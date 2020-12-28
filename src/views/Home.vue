@@ -2,9 +2,9 @@
 	<div class="home">
 		<BaseAddButton @add="addList" />
 		<div id="list">
-			<router-link v-for="(list, index) in lists" :key="index" to="/about">
+			<router-link v-for="(list, index) in listsArray" :key="index" to="/about">
 				<figure>
-					<ListImage :txt="list.imgTxt" />
+					<ListImage :list="list" />
 					<figcaption>{{ list.name }}</figcaption>
 				</figure>
 			</router-link>
@@ -23,31 +23,34 @@ export default {
 		ListImage,
 		BaseAddButton
 	},
+	data() {
+		return {
+			listsArray: []
+		}
+	},
 	computed: {
 		...mapState(['lists'])
 	},
 	beforeMount() {
-		Axios.getLists()
-			.then(res => {
-				console.log(res.data)
-				this.$store.dispatch('setLists', res.data)
-				this.lists.map(list => {
-					let nameArray = list.name.split(' ')
-					let a = nameArray[0][0].toUpperCase()
-					let b = ''
-					if (nameArray.length > 1) b = nameArray[1][0].toUpperCase()
-					list.imgTxt = a + b
-				})
-			})
-			.catch(err => {
-				console.log(err.response)
-			})
+		this.getLists()
 	},
 	methods: {
+		getLists() {
+			this.listsArray = []
+			Axios.getLists()
+				.then(res => {
+					this.listsArray = res.data.reverse()
+					this.$store.dispatch('setLists', this.listsArray)
+				})
+				.catch(err => {
+					console.log(err.response)
+				})
+		},
 		addList(name) {
 			Axios.postList(name)
 				.then(res => {
-					console.log(res.data)
+					this.$store.dispatch('setLists', [res.data, ...this.listsArray])
+					this.getLists()
 				})
 				.catch(err => {
 					console.log(err.response)
@@ -59,8 +62,9 @@ export default {
 
 <style scoped>
 #list {
+	width: 90%;
 	list-style: none;
-	margin: 0;
+	margin: 60px auto;
 	padding: 20px 12px;
 	background-color: #161616;
 	border-radius: 0.4rem;
@@ -82,7 +86,7 @@ figure {
 }
 
 figcaption {
-	background-color: #202020;
+	background-color: #303030;
 	font-weight: bolder;
 	border-radius: 0 0 0.2rem 0.2rem;
 	color: #ccc;

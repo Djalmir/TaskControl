@@ -3,9 +3,9 @@
 		<div id="header">
 			<button @click="showMenu">
 				<svg viewBox="0 0 32 32">
-					<rect x="0" y="4" rx="2" ry="2" width="32" height="6" fill="#000" />
-					<rect x="0" y="14" rx="2" ry="2" width="32" height="6" fill="#000" />
-					<rect x="0" y="24" rx="2" ry="2" width="32" height="6" fill="#000" />
+					<rect x="0" y="3" rx="2" ry="2" width="32" height="6" fill="#000" />
+					<rect x="0" y="13" rx="2" ry="2" width="32" height="6" fill="#000" />
+					<rect x="0" y="23" rx="2" ry="2" width="32" height="6" fill="#000" />
 				</svg>
 			</button>
 			<span id="title">TaskControl</span>
@@ -64,6 +64,7 @@ export default {
 	box-shadow: 0 0 10px 2px #00000099;
 	text-align: left;
 	display: flex;
+	z-index: 2;
 }
 
 button {
@@ -83,6 +84,16 @@ button:active {
 	background-color: #bdbdbd66;
 }
 
+button:active svg {
+	transform: scale(0.8);
+}
+
+button svg {
+	width: 100%;
+	height: 100%;
+	transition: 0.2s;
+}
+
 #title {
 	position: absolute;
 	top: 0;
@@ -94,6 +105,7 @@ button:active {
 	align-items: center;
 	font-size: 20px;
 	font-weight: bolder;
+	user-select: none;
 }
 
 #shadow {
@@ -103,6 +115,7 @@ button:active {
 	width: 100%;
 	height: 100vh;
 	background-color: #00000099;
+	z-index: 2;
 }
 
 #nav {
@@ -118,6 +131,7 @@ button:active {
 	padding: 30px 0;
 	transition: 0.2s;
 	user-select: none;
+	z-index: 2;
 }
 
 #nav.visible {

@@ -90,7 +90,7 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #bdbdbd;
-	padding: 80px 10px 40px;
+	padding-bottom: 40px;
 	box-sizing: border-box;
 }
 </style>
