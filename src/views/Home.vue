@@ -1,5 +1,6 @@
 <template>
 	<div class="home">
+		<BaseAddButton @add="addList" />
 		<div id="list">
 			<router-link v-for="(list, index) in lists" :key="index" to="/about">
 				<figure>
@@ -15,10 +16,12 @@
 import ListImage from '../components/ListImage'
 import Axios from '../services/Axios'
 import { mapState } from 'vuex'
+import BaseAddButton from '../components/BaseAddButton.vue'
 export default {
 	name: 'Home',
 	components: {
-		ListImage
+		ListImage,
+		BaseAddButton
 	},
 	computed: {
 		...mapState(['lists'])
@@ -39,6 +42,17 @@ export default {
 			.catch(err => {
 				console.log(err.response)
 			})
+	},
+	methods: {
+		addList(name) {
+			Axios.postList(name)
+				.then(res => {
+					console.log(res.data)
+				})
+				.catch(err => {
+					console.log(err.response)
+				})
+		}
 	}
 }
 </script>
@@ -55,6 +69,7 @@ export default {
 
 a {
 	text-decoration: none;
+	-webkit-tap-highlight-color: #00000033;
 }
 
 figure {
@@ -64,7 +79,6 @@ figure {
 	margin: 12px 0 16px;
 	user-select: none;
 	cursor: pointer;
-	-webkit-tap-highlight-color: #00000033;
 }
 
 figcaption {

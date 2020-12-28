@@ -12,5 +12,11 @@ const api = axios.create({
 export default {
 	getLists() {
 		return api.get(`/lists`)
+	},
+	postList(name) {
+		return api.post('/lists', {
+			name: name,
+			todos: []
+		})
 	}
 }
