@@ -2,24 +2,22 @@
 	<div id="container">
 		<transition name="grow">
 			<div v-if="adding" id="innerContainer">
-				<input type="text" placeholder="Nome" v-model="name" id="inputName" />
+				<input
+					type="text"
+					placeholder="Nome"
+					v-model="name"
+					id="inputName"
+					autocomplete="off"
+					@keypress.enter="add"
+				/>
 				<button @click="cancelAdding">
-					<svg viewBox="0 0 32 32" stroke="#404040" stroke-width="10" stroke-linecap="round">
-						<line x1="6" y1="6" x2="26" y2="26" />
-						<line x1="26" y1="6" x2="6" y2="26" />
-					</svg>
+					<img :src="require('../assets/cancel.svg')" />
 				</button>
 			</div>
 		</transition>
 		<button @click="add" id="addBt">
-			<svg viewBox="0 0 32 32" v-if="!adding" stroke="#404040" stroke-width="10" stroke-linecap="round">
-				<line x1="16" y1="6" x2="16" y2="26" />
-				<line x1="6" y1="16" x2="26" y2="16" />
-			</svg>
-			<svg viewBox="0 0 32 32" v-else stroke="#404040" stroke-width="10" stroke-linecap="round">
-				<line x1="6" y1="16" x2="12" y2="26" />
-				<line x1="12" y1="26" x2="26" y2="8" />
-			</svg>
+			<img :src="require('../assets/add.svg')" v-if="!adding" />
+			<img :src="require('../assets/done.svg')" v-else />
 		</button>
 	</div>
 </template>
@@ -39,9 +37,9 @@ export default {
 	methods: {
 		cancelAdding() {
 			this.name = ''
-			setTimeout(()=>{
+			setTimeout(() => {
 				this.adding = false
-			},500)
+			}, 500)
 		},
 		add() {
 			if (this.adding && this.name.trim() !== '') {
@@ -103,13 +101,13 @@ button {
 	box-sizing: border-box;
 }
 
-button svg {
+button img {
 	transition: 0.1s;
 	width: 100%;
 	height: 100%;
 }
 
-button:active svg {
+button:active img {
 	transform: scale(0.8);
 }
 
@@ -145,7 +143,7 @@ input {
 #innerContainer button {
 	margin: 0;
 	border-radius: 0;
-	background-color: #ff5555;
+	background-color: #ff954e;
 	box-shadow: 0px 0 10px 2px #00000099;
 }
 

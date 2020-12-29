@@ -18,7 +18,8 @@ export default {
 		let nameArray = this.list.name.split(' ')
 		let a = nameArray[0][0].toUpperCase()
 		let b = ''
-		if (nameArray.length > 1) b = nameArray[1][0].toUpperCase()
+		if (nameArray.length > 2) b = nameArray[2][0].toUpperCase()
+		else if (nameArray.length > 1) b = nameArray[1][0].toUpperCase()
 		this.imgTxt = a + b
 	}
 }
@@ -33,6 +34,5 @@ text {
 	stroke-width: 0.2;
 	font-size: 20px;
 	font-weight: bolder;
-	/* text-shadow: 0 0 20px #002da8; */
 }
 </style>

@@ -1,94 +1,24 @@
 {
   "lists": [
     {
-      "name": "a 1",
-      "todos": [],
-      "id": 1
-    },
-    {
-      "name": "opa bom?",
+      "name": "Compras Mensais",
       "todos": [],
       "id": 2
     },
     {
-      "name": "teste",
-      "todos": [],
-      "id": 3
-    },
-    {
-      "name": "TaskControl",
-      "todos": [],
-      "id": 4
-    },
-    {
-      "name": "affs caralhudas",
+      "name": "compras da semana",
       "todos": [],
       "id": 5
     },
     {
-      "name": "bla bla bla",
+      "name": "Task Control",
       "todos": [],
       "id": 6
     },
     {
-      "name": "lolzera ihull",
+      "name": "Task Board",
       "todos": [],
       "id": 7
-    },
-    {
-      "name": "aue porra",
-      "todos": [],
-      "id": 8
-    },
-    {
-      "name": "1 2 3",
-      "todos": [],
-      "id": 9
-    },
-    {
-      "name": "z z",
-      "todos": [],
-      "id": 10
-    },
-    {
-      "name": "aham pow",
-      "todos": [],
-      "id": 11
-    },
-    {
-      "name": "puta merda",
-      "todos": [],
-      "id": 12
-    },
-    {
-      "name": "aeeeeee",
-      "todos": [],
-      "id": 13
-    },
-    {
-      "name": "c c",
-      "todos": [],
-      "id": 14
-    },
-    {
-      "name": "d d",
-      "todos": [],
-      "id": 15
-    },
-    {
-      "name": "e e",
-      "todos": [],
-      "id": 16
-    },
-    {
-      "name": "f f",
-      "todos": [],
-      "id": 17
-    },
-    {
-      "name": "hhh",
-      "todos": [],
-      "id": 18
     }
   ]
 }
