@@ -39,7 +39,9 @@ export default {
 	methods: {
 		cancelAdding() {
 			this.name = ''
-			this.adding = false
+			setTimeout(()=>{
+				this.adding = false
+			},500)
 		},
 		add() {
 			if (this.adding && this.name.trim() !== '') {
@@ -94,7 +96,7 @@ button {
 	border-radius: 0.4rem;
 	width: 50px;
 	height: 32px;
-	margin: 0 2px;
+	margin: 0 2px 0 4px;
 	padding: 8px 12px;
 	cursor: pointer;
 	-webkit-tap-highlight-color: transparent;

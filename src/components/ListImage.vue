@@ -33,6 +33,6 @@ text {
 	stroke-width: 0.2;
 	font-size: 20px;
 	font-weight: bolder;
-	text-shadow: 0 0 20px #002da8;
+	/* text-shadow: 0 0 20px #002da8; */
 }
 </style>
