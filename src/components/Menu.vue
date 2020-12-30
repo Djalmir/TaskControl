@@ -4,7 +4,7 @@
 			<button @click="showMenu">
 				<img :src="require('../assets/menu.svg')" />
 			</button>
-			<span id="title">TaskControl</span>
+			<span id="title">{{ list.list ? list.list.name : 'TaskControl' }}</span>
 		</div>
 		<transition name="shadowOpacity">
 			<div
@@ -18,7 +18,9 @@
 				<router-link to="/" id="homeLink">TaskControl</router-link>
 			</div>
 			<div id="navBody">
-				<router-link to="/about" v-for="(list, index) in list.lists" :key="index">{{ list.name }}</router-link>
+				<template v-for="(list, index) in list.lists">
+					<router-link :to="'/list/' + list.id" :key="index">{{ list.name }}</router-link>
+				</template>
 			</div>
 			<div id="navFooter">
 				<p>Created by Djalmir Miodutzki</p>
@@ -146,13 +148,13 @@ button img {
 	left: 0;
 }
 
-#navHeader{
+#navHeader {
 	display: flex;
 	flex-direction: column;
 	border-bottom: 1px solid #00000066;
 }
 
-#navBody{
+#navBody {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
@@ -160,7 +162,7 @@ button img {
 	padding: 10px 0;
 }
 
-#navFooter{
+#navFooter {
 	display: flex;
 	flex-direction: column;
 	border-top: 2px solid #00000066;

@@ -1,6 +1,6 @@
 <template>
 	<svg viewBox="0 0 32 22" xmlns="http://www.w3.org/2000/svg">
-		<text x="16" y="11">
+		<text x="16" y="11" dominant-baseline="central">
 			{{ imgTxt }}
 		</text>
 	</svg>
@@ -14,24 +14,21 @@ export default {
 			imgTxt: ''
 		}
 	},
-	computed:{
-		listName(){
+	computed: {
+		listName() {
 			return this.list.name
 		}
 	},
-	watch:{
-		/*list(){
-			this.mountImgTxt()
-		},*/
-		listName(){
+	watch: {
+		listName() {
 			this.mountImgTxt()
 		}
 	},
 	mounted() {
 		this.mountImgTxt()
 	},
-	methods:{
-		mountImgTxt(){
+	methods: {
+		mountImgTxt() {
 			let nameArray = this.list.name.split(' ')
 			let a = nameArray[0][0].toUpperCase()
 			let b = ''
@@ -46,7 +43,6 @@ export default {
 <style scoped>
 text {
 	text-anchor: middle;
-	dominant-baseline: central;
 	fill: #202020;
 	stroke: #bdbdbd;
 	stroke-width: 0.2;

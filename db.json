@@ -1,13 +1,103 @@
 {
   "lists": [
     {
-      "name": "compras da semana",
-      "todos": [],
+      "name": "TaskControl",
+      "todos": [
+        {
+          "name": "Criar loadings para as chamadas do axios. Interceptar as chamadas.",
+          "done": false
+        },
+        {
+          "name": "Botão adicionar deve ter legenda. \"+ Adicionar lista\" e \"+ Adicionar tarefa\"",
+          "done": false
+        },
+        {
+          "name": "Criar componente confirm",
+          "done": false
+        },
+        {
+          "name": "Permitir alterar ordem (mover) todos",
+          "done": false
+        },
+        {
+          "name": "Permitir edição de todos",
+          "done": false
+        },
+        {
+          "name": "permitir exclusão de todos",
+          "done": false
+        },
+        {
+          "name": "Criar submenus para os todos",
+          "done": false
+        },
+        {
+          "name": "Inverter ordem dos todos, de forma que o mais antigo fique no topo da lista",
+          "done": false
+        }
+      ],
       "id": 2
     },
     {
-      "name": "teste",
-      "todos": [],
+      "name": "Lista de testes",
+      "todos": [
+        {
+          "name": "lol",
+          "done": false
+        },
+        {
+          "name": "aee agora funfaa!",
+          "done": false
+        },
+        {
+          "name": "xxx",
+          "done": true
+        },
+        {
+          "name": "rewq",
+          "done": true
+        },
+        {
+          "name": "qwer",
+          "done": true
+        },
+        {
+          "name": "asdfasdf",
+          "done": true
+        },
+        {
+          "name": "w",
+          "done": true
+        },
+        {
+          "name": "q",
+          "done": true
+        },
+        {
+          "name": "z",
+          "done": true
+        },
+        {
+          "name": "qwertyy",
+          "done": true
+        },
+        {
+          "name": "asdf",
+          "done": true
+        },
+        {
+          "name": "Desenvolver essa tela",
+          "done": true
+        },
+        {
+          "name": "b",
+          "done": true
+        },
+        {
+          "name": "a",
+          "done": true
+        }
+      ],
       "id": 3
     }
   ]

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-	baseURL: 'http://localhost:3000',
+	baseURL: 'http://192.168.100.100:3000',
 	withCredentials: false,
 	headers: {
 		Accept: 'application/json',
@@ -27,5 +27,8 @@ export default {
 	},
 	deleteList(id) {
 		return api.delete(`/lists/${id}`)
+	},
+	getListById(id) {
+		return api.get(`/lists/${id}`)
 	}
 }

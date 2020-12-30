@@ -85,6 +85,7 @@ export default {
 	border-radius: 0 0 0.2rem 0.2rem;
 	box-shadow: 0 2px 10px 2px #00000099;
 	transition: 0.2s;
+	z-index: 1;
 }
 
 button {

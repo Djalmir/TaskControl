@@ -3,13 +3,14 @@
 		<BaseAddButton @add="addList" />
 		<div id="list">
 			<div v-for="(list, index) in list.lists" :key="index" class="linkContainer">
-				<router-link :to="'/list/'+list.id" >
-					<figure @contextmenu.prevent="(e)=>{
-							if(e.target.tagName!='INPUT')
-								subMenu(list.id)
-							else
-								e.target.select()
-						}"
+				<router-link :to="'/list/' + list.id">
+					<figure
+						@contextmenu.prevent="
+							e => {
+								if (e.target.tagName != 'INPUT') subMenu(list.id)
+								else e.target.select()
+							}
+						"
 					>
 						<ListImage :list="list" class="listImage" />
 						<figcaption>
@@ -66,6 +67,7 @@ export default {
 		...mapState(['list', 'home'])
 	},
 	beforeMount() {
+		this.list.list = null
 		document.body.addEventListener('click', e => {
 			let target = e.target
 			for (let i = 0; i < 3; i++) {
@@ -73,8 +75,8 @@ export default {
 				else target = target.parentElement
 			}
 			if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
-				this.$store.dispatch('home/setShowingSubMenu',null)
-				this.$store.dispatch('home/setRenaming',null)
+				this.$store.dispatch('home/setShowingSubMenu', null)
+				this.$store.dispatch('home/setRenaming', null)
 			}
 		})
 	},
@@ -89,8 +91,8 @@ export default {
 				})
 		},
 		subMenu(id) {
-			this.$store.dispatch('home/setRenaming',null)
-			this.$store.dispatch('home/setShowingSubMenu',id)
+			this.$store.dispatch('home/setRenaming', null)
+			this.$store.dispatch('home/setShowingSubMenu', id)
 		},
 		delOrCancel(list) {
 			if (this.home.renaming) this.home.renaming = null
@@ -98,7 +100,7 @@ export default {
 				if (confirm(`Remover a lista ${list.name}?`)) {
 					Axios.deleteList(list.id)
 						.then(() => {
-							let lists=this.list.lists.filter(l=>l.id!=list.id)
+							let lists = this.list.lists.filter(l => l.id != list.id)
 							this.$store.dispatch('list/setLists', lists)
 						})
 						.catch(err => {
@@ -113,17 +115,17 @@ export default {
 				if (input.value.trim() != '') {
 					Axios.putList(list.id, input.value, list.todos)
 						.then(() => {
-							list.name=input.value
+							list.name = input.value
 							this.$store.dispatch('list/setLists', this.list.lists)
-							this.$store.dispatch('home/setRenaming',null)
-							this.$store.dispatch('home/setShowingSubMenu',null)
+							this.$store.dispatch('home/setRenaming', null)
+							this.$store.dispatch('home/setShowingSubMenu', null)
 						})
 						.catch(err => {
 							console.log(err)
 						})
 				} else input.focus()
 			} else {
-				this.$store.dispatch('home/setRenaming',list.id)
+				this.$store.dispatch('home/setRenaming', list.id)
 				setTimeout(() => {
 					let input = document.querySelector(`#nameInput${list.id}`)
 					input.focus()
@@ -180,13 +182,12 @@ figcaption {
 	padding: 0;
 }
 
-figcaption div{
+figcaption div {
 	padding: 10px 0;
 }
 
 .nameInput {
 	width: 100%;
-	line-height: ;
 	margin: 0;
 	padding: 10px 0;
 	text-align: center;
