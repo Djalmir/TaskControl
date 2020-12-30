@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import List from '../views/List.vue'
 import store from '../store/store'
-import * as home from '../store/modules/home'
 
 Vue.use(VueRouter)
 
@@ -35,7 +34,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 	let showingMenu = store.state.showingMenu
-	let renaming = home.state.renaming
+	let renaming = store.state.renaming
 	if (showingMenu) store.dispatch('setShowingMenu')
 	if (renaming) next(false)
 	else next()

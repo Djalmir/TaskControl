@@ -14,14 +14,14 @@
 					>
 						<ListImage :list="list" class="listImage" />
 						<figcaption>
-							<div v-if="home.renaming != list.id">{{ list.name }}</div>
+							<div v-if="renaming != list.id">{{ list.name }}</div>
 							<input
 								type="text"
 								placeholder="Nome"
 								:id="'nameInput' + list.id"
 								:value="list.name"
 								class="nameInput"
-								v-if="home.renaming == list.id"
+								v-if="renaming == list.id"
 								autocomplete="off"
 								@keypress.enter="renameOrSave(list)"
 								@keydown.esc="delOrCancel(list)"
@@ -29,7 +29,7 @@
 						</figcaption>
 					</figure>
 				</router-link>
-				<SubMenu/>
+				<SubMenu :item="list" />
 			</div>
 		</div>
 	</div>
@@ -49,7 +49,7 @@ export default {
 		SubMenu
 	},
 	computed: {
-		...mapState(['list', 'home'])
+		...mapState(['list', 'showingSubMenu', 'renaming'])
 	},
 	beforeMount() {
 		this.list.list = null
@@ -60,8 +60,8 @@ export default {
 				else target = target.parentElement
 			}
 			if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
-				this.$store.dispatch('home/setShowingSubMenu', null)
-				this.$store.dispatch('home/setRenaming', null)
+				this.$store.dispatch('setShowingSubMenu', null)
+				this.$store.dispatch('setRenaming', null)
 			}
 		})
 	},
@@ -76,46 +76,8 @@ export default {
 				})
 		},
 		subMenu(id) {
-			this.$store.dispatch('home/setRenaming', null)
-			this.$store.dispatch('home/setShowingSubMenu', id)
-		},
-		delOrCancel(list) {
-			if (this.home.renaming) this.home.renaming = null
-			else {
-				if (confirm(`Remover a lista ${list.name}?`)) {
-					Axios.deleteList(list.id)
-						.then(() => {
-							let lists = this.list.lists.filter(l => l.id != list.id)
-							this.$store.dispatch('list/setLists', lists)
-						})
-						.catch(err => {
-							console.log(err)
-						})
-				}
-			}
-		},
-		renameOrSave(list) {
-			if (this.home.renaming) {
-				let input = document.querySelector(`#nameInput${list.id}`)
-				if (input.value.trim() != '') {
-					Axios.putList(list.id, input.value, list.todos)
-						.then(() => {
-							list.name = input.value
-							this.$store.dispatch('list/setLists', this.list.lists)
-							this.$store.dispatch('home/setRenaming', null)
-							this.$store.dispatch('home/setShowingSubMenu', null)
-						})
-						.catch(err => {
-							console.log(err)
-						})
-				} else input.focus()
-			} else {
-				this.$store.dispatch('home/setRenaming', list.id)
-				setTimeout(() => {
-					let input = document.querySelector(`#nameInput${list.id}`)
-					input.focus()
-				}, 200)
-			}
+			this.$store.dispatch('setRenaming', null)
+			this.$store.dispatch('setShowingSubMenu', id)
 		}
 	}
 }
@@ -182,68 +144,5 @@ figcaption div {
 	font-weight: inherit;
 	border: none;
 	outline: none;
-}
-
-.subMenu {
-	display: flex;
-	transform-origin: top;
-}
-
-.subMenu button {
-	border: 1px solid #303030;
-	flex: 1;
-	height: 40px;
-	outline: none;
-	cursor: pointer;
-	-webkit-tap-highlight-color: transparent;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.deleteBtn {
-	border-radius: 0 0 0 0.2rem;
-	background-color: #ff5555;
-}
-
-.cancelBtn {
-	border-radius: 0 0 0 0.2rem;
-	background-color: #ff954e;
-}
-
-.renameBtn {
-	border-radius: 0 0 0.2rem 0;
-	background-color: #f5ff67;
-}
-
-.saveBtn {
-	border-radius: 0 0 0.2rem 0;
-	background-color: #c2ff7c;
-}
-
-.subMenu button:active img {
-	transform: scale(0.8);
-}
-
-.subMenu img {
-	height: 22px;
-	transition: 0.2s;
-}
-
-.grow-enter-active {
-	animation: grow linear 0.1s 1;
-}
-
-.grow-leave-active {
-	animation: grow reverse linear 0.1s 1;
-}
-
-@keyframes grow {
-	0% {
-		height: 0;
-	}
-	100% {
-		height: 40px;
-	}
 }
 </style>
