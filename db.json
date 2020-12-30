@@ -1,24 +1,14 @@
 {
   "lists": [
     {
-      "name": "Compras Mensais",
+      "name": "compras da semana",
       "todos": [],
       "id": 2
     },
     {
-      "name": "compras da semana",
+      "name": "teste",
       "todos": [],
-      "id": 5
-    },
-    {
-      "name": "Task Control",
-      "todos": [],
-      "id": 6
-    },
-    {
-      "name": "Task Board",
-      "todos": [],
-      "id": 7
+      "id": 3
     }
   ]
 }

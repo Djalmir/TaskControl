@@ -14,13 +14,31 @@ export default {
 			imgTxt: ''
 		}
 	},
+	computed:{
+		listName(){
+			return this.list.name
+		}
+	},
+	watch:{
+		/*list(){
+			this.mountImgTxt()
+		},*/
+		listName(){
+			this.mountImgTxt()
+		}
+	},
 	mounted() {
-		let nameArray = this.list.name.split(' ')
-		let a = nameArray[0][0].toUpperCase()
-		let b = ''
-		if (nameArray.length > 2) b = nameArray[2][0].toUpperCase()
-		else if (nameArray.length > 1) b = nameArray[1][0].toUpperCase()
-		this.imgTxt = a + b
+		this.mountImgTxt()
+	},
+	methods:{
+		mountImgTxt(){
+			let nameArray = this.list.name.split(' ')
+			let a = nameArray[0][0].toUpperCase()
+			let b = ''
+			if (nameArray.length > 2) b = nameArray[2][0].toUpperCase()
+			else if (nameArray.length > 1) b = nameArray[1][0].toUpperCase()
+			this.imgTxt = a + b
+		}
 	}
 }
 </script>

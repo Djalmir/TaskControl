@@ -2,11 +2,7 @@
 	<div>
 		<div id="header">
 			<button @click="showMenu">
-				<svg viewBox="0 0 32 32">
-					<rect x="0" y="3" rx="2" ry="2" width="32" height="6" fill="#000" />
-					<rect x="0" y="13" rx="2" ry="2" width="32" height="6" fill="#000" />
-					<rect x="0" y="23" rx="2" ry="2" width="32" height="6" fill="#000" />
-				</svg>
+				<img :src="require('../assets/menu.svg')" />
 			</button>
 			<span id="title">TaskControl</span>
 		</div>
@@ -18,8 +14,15 @@
 			></div>
 		</transition>
 		<div id="nav" :class="{ showing: showingMenu, visible: menuLeft != undefined || showingMenu }">
-			<router-link to="/" id="homeLink">Início</router-link>
-			<router-link to="/about" v-for="(list, index) in lists" :key="index">{{ list.name }}</router-link>
+			<div id="navHeader">
+				<router-link to="/" id="homeLink">TaskControl</router-link>
+			</div>
+			<div id="navBody">
+				<router-link to="/about" v-for="(list, index) in list.lists" :key="index">{{ list.name }}</router-link>
+			</div>
+			<div id="navFooter">
+				<p>Created by Djalmir Miodutzki</p>
+			</div>
 		</div>
 	</div>
 </template>
@@ -43,7 +46,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['showingMenu', 'lists'])
+		...mapState(['showingMenu', 'list'])
 	},
 	methods: {
 		showMenu() {
@@ -84,11 +87,11 @@ button:active {
 	background-color: #bdbdbd66;
 }
 
-button:active svg {
+button:active img {
 	transform: scale(0.8);
 }
 
-button svg {
+button img {
 	width: 100%;
 	height: 100%;
 	transition: 0.2s;
@@ -122,13 +125,14 @@ button svg {
 	position: fixed;
 	top: 0;
 	left: -300px;
-	width: 90%;
-	height: 100%;
+	width: 80%;
+	height: 100vh;
 	max-width: 300px;
 	background-color: #161616;
 	display: flex;
 	flex-direction: column;
-	padding: 30px 0;
+	padding: 0;
+	box-sizing: border-box;
 	transition: 0.2s;
 	user-select: none;
 	z-index: 2;
@@ -142,8 +146,26 @@ button svg {
 	left: 0;
 }
 
-a#homeLink {
-	margin-bottom: 20px;
+#navHeader{
+	display: flex;
+	flex-direction: column;
+	border-bottom: 1px solid #00000066;
+}
+
+#navBody{
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
+	padding: 10px 0;
+}
+
+#navFooter{
+	display: flex;
+	flex-direction: column;
+	border-top: 2px solid #00000066;
+	background-color: #121212;
+	font-style: italic;
 }
 
 a {

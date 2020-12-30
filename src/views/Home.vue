@@ -1,13 +1,19 @@
 <template>
-	<div class="home">
+	<div>
 		<BaseAddButton @add="addList" />
 		<div id="list">
-			<div v-for="(list, index) in listsArray" :key="index" class="linkContainer">
-				<router-link to="/about">
-					<figure @contextmenu.prevent="subMenu(list.id)">
+			<div v-for="(list, index) in list.lists" :key="index" class="linkContainer">
+				<router-link :to="'/list/'+list.id" >
+					<figure @contextmenu.prevent="(e)=>{
+							if(e.target.tagName!='INPUT')
+								subMenu(list.id)
+							else
+								e.target.select()
+						}"
+					>
 						<ListImage :list="list" class="listImage" />
 						<figcaption>
-							<span v-if="home.renaming != list.id">{{ list.name }}</span>
+							<div v-if="home.renaming != list.id">{{ list.name }}</div>
 							<input
 								type="text"
 								placeholder="Nome"
@@ -56,16 +62,10 @@ export default {
 		ListImage,
 		BaseAddButton
 	},
-	data() {
-		return {
-			listsArray: []
-		}
-	},
 	computed: {
-		...mapState(['lists', 'home'])
+		...mapState(['list', 'home'])
 	},
 	beforeMount() {
-		this.getLists()
 		document.body.addEventListener('click', e => {
 			let target = e.target
 			for (let i = 0; i < 3; i++) {
@@ -73,36 +73,24 @@ export default {
 				else target = target.parentElement
 			}
 			if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
-				this.home.showingSubMenu = null
-				this.home.renaming = null
+				this.$store.dispatch('home/setShowingSubMenu',null)
+				this.$store.dispatch('home/setRenaming',null)
 			}
 		})
 	},
 	methods: {
-		getLists() {
-			this.listsArray = []
-			Axios.getLists()
-				.then(res => {
-					this.listsArray = res.data.reverse()
-					this.$store.dispatch('setLists', this.listsArray)
-				})
-				.catch(err => {
-					console.log(err.response)
-				})
-		},
 		addList(name) {
 			Axios.postList(name)
 				.then(res => {
-					this.$store.dispatch('setLists', [res.data, ...this.lists])
-					this.getLists()
+					this.$store.dispatch('list/setLists', [res.data, ...this.list.lists])
 				})
 				.catch(err => {
-					console.log(err.response)
+					console.log(err)
 				})
 		},
 		subMenu(id) {
-			this.home.renaming = null
-			this.home.showingSubMenu = id
+			this.$store.dispatch('home/setRenaming',null)
+			this.$store.dispatch('home/setShowingSubMenu',id)
 		},
 		delOrCancel(list) {
 			if (this.home.renaming) this.home.renaming = null
@@ -110,10 +98,11 @@ export default {
 				if (confirm(`Remover a lista ${list.name}?`)) {
 					Axios.deleteList(list.id)
 						.then(() => {
-							this.getLists()
+							let lists=this.list.lists.filter(l=>l.id!=list.id)
+							this.$store.dispatch('list/setLists', lists)
 						})
 						.catch(err => {
-							console.log(err.response)
+							console.log(err)
 						})
 				}
 			}
@@ -124,17 +113,17 @@ export default {
 				if (input.value.trim() != '') {
 					Axios.putList(list.id, input.value, list.todos)
 						.then(() => {
-							this.$store.dispatch('setLists', this.lists)
-							this.home.renaming = null
-							this.home.showingSubMenu = null
-							this.getLists()
+							list.name=input.value
+							this.$store.dispatch('list/setLists', this.list.lists)
+							this.$store.dispatch('home/setRenaming',null)
+							this.$store.dispatch('home/setShowingSubMenu',null)
 						})
 						.catch(err => {
-							console.log(err.response)
+							console.log(err)
 						})
 				} else input.focus()
 			} else {
-				this.home.renaming = list.id
+				this.$store.dispatch('home/setRenaming',list.id)
 				setTimeout(() => {
 					let input = document.querySelector(`#nameInput${list.id}`)
 					input.focus()
@@ -188,13 +177,18 @@ figcaption {
 	background-color: #303030;
 	font-weight: bolder;
 	color: #ccc;
+	padding: 0;
+}
+
+figcaption div{
 	padding: 10px 0;
 }
 
 .nameInput {
 	width: 100%;
+	line-height: ;
 	margin: 0;
-	padding: 0;
+	padding: 10px 0;
 	text-align: center;
 	background-color: inherit;
 	color: inherit;

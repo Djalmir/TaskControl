@@ -8,19 +8,24 @@
 <script>
 import { mapState } from 'vuex'
 import Menu from './components/Menu'
+import Axios from './services/Axios'
 export default {
 	data() {
 		return {
 			touchStart: null,
 			touchPos: null,
-			menuLeft: undefined
+			menuLeft: undefined,
+			listsArray: []
 		}
 	},
 	components: {
 		Menu
 	},
 	computed: {
-		...mapState(['showingMenu'])
+		...mapState(['lists','showingMenu'])
+	},
+	beforeMount(){
+		this.getLists()
 	},
 	mounted() {
 		window.addEventListener('touchstart', this.setTouchStart)
@@ -31,6 +36,17 @@ export default {
 		window.addEventListener('mouseup', this.setTouchEnd)
 	},
 	methods: {
+		getLists() {
+			this.listsArray = []
+			Axios.getLists()
+				.then(res => {
+					this.listsArray = res.data.reverse()
+					this.$store.dispatch('list/setLists', this.listsArray)
+				})
+				.catch(err => {
+					console.log(err.response)
+				})
+		},
 		setTouchStart(e) {
 			if (e.touches) {
 				this.touchStart = e.touches[0]
@@ -59,10 +75,10 @@ export default {
 		setTouchEnd() {
 			if (this.menuLeft != undefined) {
 				if (!this.showingMenu) {
-					if (this.menuLeft >= -150) this.$store.dispatch('setShowingMenu')
+					if (this.menuLeft >= -275) this.$store.dispatch('setShowingMenu')
 					else this.menuLeft = undefined
 				} else {
-					if (this.menuLeft < -150) this.$store.dispatch('setShowingMenu')
+					if (this.menuLeft <= -25) this.$store.dispatch('setShowingMenu')
 					else this.menuLeft = undefined
 				}
 			}
@@ -75,6 +91,11 @@ export default {
 </script>
 
 <style>
+::selection{
+	background-color: #bdbdbd;
+	color:#121212;
+}
+
 body {
 	margin: 0;
 	padding: 0;
