@@ -4,101 +4,123 @@
       "name": "TaskControl",
       "todos": [
         {
-          "name": "Criar loadings para as chamadas do axios. Interceptar as chamadas.",
-          "done": false
+          "name": "Inverter ordem dos todos, de forma que o mais antigo fique no topo da lista",
+          "done": true,
+          "index": 0
         },
         {
-          "name": "Botão adicionar deve ter legenda. \"+ Adicionar lista\" e \"+ Adicionar tarefa\"",
-          "done": false
-        },
-        {
-          "name": "Criar componente confirm",
-          "done": false
-        },
-        {
-          "name": "Permitir alterar ordem (mover) todos",
-          "done": false
-        },
-        {
-          "name": "Permitir edição de todos",
-          "done": false
-        },
-        {
-          "name": "permitir exclusão de todos",
-          "done": false
+          "name": "Rolar automaticamente para o novo todo ao adicionar",
+          "done": true,
+          "index": 1
         },
         {
           "name": "Criar submenus para os todos",
-          "done": false
+          "done": false,
+          "index": 2
         },
         {
-          "name": "Inverter ordem dos todos, de forma que o mais antigo fique no topo da lista",
-          "done": false
+          "name": "permitir exclusão de todos",
+          "done": false,
+          "index": 3
+        },
+        {
+          "name": "Permitir edição de todos",
+          "done": false,
+          "index": 4
+        },
+        {
+          "name": "Permitir alterar ordem (mover) todos",
+          "done": false,
+          "index": 5
+        },
+        {
+          "name": "Criar componente confirm",
+          "done": false,
+          "index": 6
+        },
+        {
+          "name": "Botão adicionar deve ter legenda. \"+ Adicionar lista\" e \"+ Adicionar tarefa\"",
+          "done": false,
+          "index": 7
+        },
+        {
+          "name": "Criar loadings para as chamadas do axios. Interceptar as chamadas.",
+          "done": false,
+          "index": 8
+        },
+        {
+          "name": "Permitir user de selecionar imagem para a capa da lista",
+          "done": false,
+          "index": 9
+        },
+        {
+          "name": "Ao adicionar todo, manter input de adição aberto",
+          "done": false,
+          "index": 10
+        },
+        {
+          "name": "Ao adicionar todo, manter input de adição visível apesar da rolagem automática",
+          "done": false,
+          "index": 11
         }
       ],
-      "id": 2
+      "id": 1
     },
     {
       "name": "Lista de testes",
       "todos": [
         {
-          "name": "lol",
-          "done": false
+          "name": "teste 1",
+          "done": true,
+          "index": 0
         },
         {
-          "name": "aee agora funfaa!",
-          "done": false
+          "name": "pao",
+          "done": true,
+          "index": 1
         },
         {
-          "name": "xxx",
-          "done": true
+          "name": "leite",
+          "done": true,
+          "index": 2
         },
         {
-          "name": "rewq",
-          "done": true
+          "name": "carne",
+          "done": true,
+          "index": 3
         },
         {
-          "name": "qwer",
-          "done": true
+          "name": "mus",
+          "done": true,
+          "index": 4
         },
         {
-          "name": "asdfasdf",
-          "done": true
-        },
-        {
-          "name": "w",
-          "done": true
-        },
-        {
-          "name": "q",
-          "done": true
-        },
-        {
-          "name": "z",
-          "done": true
-        },
-        {
-          "name": "qwertyy",
-          "done": true
-        },
-        {
-          "name": "asdf",
-          "done": true
-        },
-        {
-          "name": "Desenvolver essa tela",
-          "done": true
-        },
-        {
-          "name": "b",
-          "done": true
+          "name": "p u",
+          "done": true,
+          "index": 5
         },
         {
           "name": "a",
-          "done": true
+          "done": true,
+          "index": 6
+        },
+        {
+          "name": "b",
+          "done": true,
+          "index": 7
+        },
+        {
+          "name": "c",
+          "done": true,
+          "index": 8
+        },
+        {
+          "name": "ass",
+          "done": true,
+          "index": 9
         }
       ],
-      "id": 3
+      "id": 2
     }
   ]
 }

@@ -75,7 +75,7 @@ export default {
 button {
 	outline: none;
 	border: none;
-	background-color: #bdbdbd;
+	background-color: transparent;
 	border-radius: 0.4rem;
 	width: 32px;
 	height: 32px;
@@ -85,9 +85,9 @@ button {
 	-webkit-tap-highlight-color: transparent;
 }
 
-button:active {
+/* button:active {
 	background-color: #bdbdbd66;
-}
+} */
 
 button:active img {
 	transform: scale(0.8);

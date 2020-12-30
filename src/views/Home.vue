@@ -29,24 +29,7 @@
 						</figcaption>
 					</figure>
 				</router-link>
-				<transition name="grow">
-					<div class="subMenu" v-if="home.showingSubMenu == list.id">
-						<button
-							:class="{ deleteBtn: !home.renaming, cancelBtn: home.renaming }"
-							@click="delOrCancel(list)"
-						>
-							<img :src="require('../assets/trash.svg')" v-if="!home.renaming" />
-							<img :src="require('../assets/cancel.svg')" v-else />
-						</button>
-						<button
-							:class="{ renameBtn: !home.renaming, saveBtn: home.renaming }"
-							@click="renameOrSave(list)"
-						>
-							<img :src="require('../assets/edit.svg')" v-if="!home.renaming" />
-							<img :src="require('../assets/done.svg')" v-else />
-						</button>
-					</div>
-				</transition>
+				<SubMenu/>
 			</div>
 		</div>
 	</div>
@@ -54,6 +37,7 @@
 
 <script>
 import ListImage from '../components/ListImage'
+import SubMenu from '../components/SubMenu'
 import Axios from '../services/Axios'
 import { mapState } from 'vuex'
 import BaseAddButton from '../components/BaseAddButton.vue'
@@ -61,7 +45,8 @@ export default {
 	name: 'Home',
 	components: {
 		ListImage,
-		BaseAddButton
+		BaseAddButton,
+		SubMenu
 	},
 	computed: {
 		...mapState(['list', 'home'])

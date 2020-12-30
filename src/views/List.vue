@@ -30,16 +30,23 @@ export default {
 			next()
 		})
 	},
+	beforeMount(){
+		this.list.todos = this.list.todos.sort((a,b)=>{
+			return a.index - b.index
+		})
+	},
 	methods: {
 		addTodo(name) {
 			let todo = {
 				name: name,
-				done: false
+				done: false,
+				index:this.list.todos.length
 			}
-			let todos = [todo, ...this.list.todos]
+			let todos = [...this.list.todos,todo]
 			Axios.putList(this.list.id, this.list.name, todos)
 				.then(() => {
 					this.$store.dispatch('list/setTodos', todos)
+					window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'})
 				})
 				.catch(err => {
 					console.log(err.response)
