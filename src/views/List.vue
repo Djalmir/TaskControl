@@ -85,9 +85,14 @@ export default {
 <style scoped>
 #list {
 	margin: 60px auto;
+	padding: 20px 0;
+	display: flex;
+	justify-content: flex-start;
+	flex-direction: column;
 }
 
 .todoContainer {
+	width: 100%;
 	margin: 4px auto;
 	border-top: 1px solid #bdbdbd66;
 	border-bottom: 2px solid #0a0a0a66;

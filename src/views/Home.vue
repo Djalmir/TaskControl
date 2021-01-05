@@ -53,17 +53,6 @@ export default {
 	},
 	beforeMount() {
 		this.list.list = null
-		document.body.addEventListener('click', e => {
-			let target = e.target
-			for (let i = 0; i < 3; i++) {
-				if (target.classList.contains('subMenu') || target.tagName == 'INPUT') break
-				else target = target.parentElement
-			}
-			if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
-				this.$store.dispatch('setShowingSubMenu', null)
-				this.$store.dispatch('setRenaming', null)
-			}
-		})
 	},
 	methods: {
 		addList(name) {

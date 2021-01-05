@@ -67,12 +67,22 @@
       "id": 1
     },
     {
-      "name": "Lista de testes",
+      "name": "Lista de Testes",
       "todos": [
         {
           "name": "teste 1",
           "done": false,
           "index": 0
+        },
+        {
+          "name": "teste 2",
+          "done": false,
+          "index": 1
+        },
+        {
+          "name": "teste 3",
+          "done": false,
+          "index": 2
         }
       ],
       "id": 2
