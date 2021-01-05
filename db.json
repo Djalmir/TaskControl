@@ -15,7 +15,7 @@
         },
         {
           "name": "Criar submenus para os todos",
-          "done": false,
+          "done": true,
           "index": 2
         },
         {
@@ -67,57 +67,12 @@
       "id": 1
     },
     {
-      "name": "Lista de testess",
+      "name": "Lista de testes",
       "todos": [
         {
           "name": "teste 1",
-          "done": true,
+          "done": false,
           "index": 0
-        },
-        {
-          "name": "pao",
-          "done": true,
-          "index": 1
-        },
-        {
-          "name": "leite",
-          "done": true,
-          "index": 2
-        },
-        {
-          "name": "carne",
-          "done": true,
-          "index": 3
-        },
-        {
-          "name": "mus",
-          "done": true,
-          "index": 4
-        },
-        {
-          "name": "p u",
-          "done": true,
-          "index": 5
-        },
-        {
-          "name": "a",
-          "done": true,
-          "index": 6
-        },
-        {
-          "name": "b",
-          "done": true,
-          "index": 7
-        },
-        {
-          "name": "c",
-          "done": true,
-          "index": 8
-        },
-        {
-          "name": "ass",
-          "done": true,
-          "index": 9
         }
       ],
       "id": 2

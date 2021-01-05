@@ -1,6 +1,6 @@
 <template>
 	<transition name="grow">
-		<div class="subMenu" v-if="showingSubMenu == item.id">
+		<div class="subMenu" v-if="showingSubMenu == (item.todos ? item.id : item.index)">
 			<button
 				:class="{ deleteBtn: !renaming, cancelBtn: renaming }"
 				@click="$store.dispatch('delOrCancel', item)"
