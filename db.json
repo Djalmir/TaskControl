@@ -15,7 +15,7 @@
         },
         {
           "name": "Criar submenus para os todos",
-          "done": false,
+          "done": true,
           "index": 2
         },
         {
@@ -67,7 +67,7 @@
       "id": 1
     },
     {
-      "name": "Lista de testes",
+      "name": "Lista de Testes",
       "todos": [
         {
           "name": "teste 1",
@@ -75,9 +75,14 @@
           "index": 0
         },
         {
-          "name": "Asdf",
+          "name": "teste 2",
           "done": false,
           "index": 1
+        },
+        {
+          "name": "teste 3",
+          "done": false,
+          "index": 2
         }
       ],
       "id": 2
