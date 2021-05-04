@@ -50,12 +50,14 @@ export default new Vuex.Store({
 			if (state.renaming) {
 				let input = document.querySelector(`#nameInput${item.id}`)
 				if (input.value.trim() != '') {
-					Axios.putList(item.id, input.value, item.todos)
-						.then(() => {
+					return Axios.putList(item.id, input.value, item.todos)
+						.then((res) => {
 							item.name = input.value
 							dispatch('list/setLists', list.lists)
 							commit('SET_RENAMING', null)
 							commit('SET_SHOWING_SUB_MENU', null)
+							console.log('retorno:',res.data)
+							return res.data
 						})
 						.catch(err => {
 							console.log(err)
