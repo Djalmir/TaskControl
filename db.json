@@ -67,21 +67,21 @@
       "id": 1
     },
     {
-      "name": "Lista de Testes",
+      "name": "Lista de Testes 1",
       "todos": [
         {
           "name": "teste 1",
-          "done": false,
+          "done": true,
           "index": 0
         },
         {
           "name": "teste 2",
-          "done": false,
+          "done": true,
           "index": 1
         },
         {
           "name": "teste 3",
-          "done": false,
+          "done": true,
           "index": 2
         }
       ],
