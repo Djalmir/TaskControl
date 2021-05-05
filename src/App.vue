@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 import Menu from './components/Menu'
 import Axios from './services/Axios'
 export default {
@@ -22,9 +22,9 @@ export default {
 		Menu
 	},
 	computed: {
-		...mapState(['lists','showingMenu'])
+		...mapState(['lists', 'showingMenu'])
 	},
-	beforeMount(){
+	beforeMount() {
 		this.getLists()
 		window.addEventListener('click', e => {
 			let target = e.target
@@ -41,7 +41,7 @@ export default {
 	mounted() {
 		window.addEventListener('touchstart', this.setTouchStart)
 		window.addEventListener('mousedown', this.setTouchStart)
-		window.addEventListener('touchmove', this.setTouchPos, { passive: false })
+		window.addEventListener('touchmove', this.setTouchPos, {passive: false})
 		window.addEventListener('mousemove', this.setTouchPos)
 		window.addEventListener('touchend', this.setTouchEnd)
 		window.addEventListener('mouseup', this.setTouchEnd)
@@ -102,9 +102,9 @@ export default {
 </script>
 
 <style>
-::selection{
+::selection {
 	background-color: #bdbdbd;
-	color:#121212;
+	color: #121212;
 }
 
 body {

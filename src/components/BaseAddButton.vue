@@ -2,14 +2,7 @@
 	<div id="container">
 		<transition name="grow">
 			<div v-if="adding" id="innerContainer">
-				<input
-					type="text"
-					placeholder="Nome"
-					v-model="name"
-					id="inputName"
-					autocomplete="off"
-					@keypress.enter="add"
-				/>
+				<input type="text" placeholder="Nome" v-model="name" id="inputName" autocomplete="off" @keypress.enter="add" />
 				<button @click="cancelAdding">
 					<img :src="require('../assets/cancel.svg')" />
 				</button>

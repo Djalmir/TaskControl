@@ -4,32 +4,19 @@
 		<div id="list">
 			<div v-for="(list, index) in list.lists" :key="index" class="linkContainer">
 				<router-link :to="'/list/' + list.id">
-					<figure
-						@contextmenu.prevent="
-							e => {
+					<figure @contextmenu.prevent="(e) => {
 								if (e.target.tagName != 'INPUT') subMenu(list.id)
 								else e.target.select()
 							}
-						"
-					>
+						">
 						<ListImage :list="list" class="listImage" />
 						<figcaption>
 							<div v-if="renaming != list.id">{{ list.name }}</div>
-							<input
-								type="text"
-								placeholder="Nome"
-								:id="'nameInput' + list.id"
-								:value="list.name"
-								class="nameInput"
-								v-if="renaming == list.id"
-								autocomplete="off"
-								@keypress.enter="$store.dispatch('renameOrSave', list)"
-								@keydown.esc="$store.dispatch('delOrCancel', list)"
-							/>
+							<input type="text" placeholder="Nome" :id="'nameInput' + list.id" :value="list.name" class="nameInput" v-if="renaming == list.id" autocomplete="off" @keypress.enter="renameOrSave(list)" @keydown.esc="delOrCancel(list)" />
 						</figcaption>
 					</figure>
 				</router-link>
-				<SubMenu :item="list" />
+				<SubMenu :item="list" @delOrCancel="delOrCancel" @renameOrSave="renameOrSave" />
 			</div>
 		</div>
 	</div>
@@ -39,7 +26,7 @@
 import ListImage from '../components/ListImage'
 import SubMenu from '../components/SubMenu'
 import Axios from '../services/Axios'
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 import BaseAddButton from '../components/BaseAddButton.vue'
 export default {
 	name: 'Home',
@@ -67,6 +54,48 @@ export default {
 		subMenu(id) {
 			this.$store.dispatch('setRenaming', null)
 			this.$store.dispatch('setShowingSubMenu', id)
+		},
+		delOrCancel(list) {
+			if (this.renaming)
+				this.$store.dispatch('setRenaming', null)
+			else {
+				if (confirm(`Remover ${ list.name }?`)) {
+					Axios.deleteList(list.id)
+						.then(() => {
+							let items = this.list.lists.filter(l => l.id != list.id)
+							this.$store.dispatch('list/setLists', items, {root: true})
+						})
+						.catch(err => {
+							console.log(err)
+						})
+				}
+			}
+		},
+		renameOrSave(list) {
+			if (this.renaming) {
+				let input = document.querySelector(`#nameInput${ list.id }`)
+				if (input.value.trim() != '') {
+					return Axios.putList(list.id, input.value, list.todos)
+						.then(() => {
+							list.name = input.value
+							this.$store.dispatch('list/setLists', this.list.lists)
+							this.$store.dispatch('setRenaming', null)
+							this.$store.dispatch('setShowingSubMenu', null)
+						})
+						.catch(err => {
+							console.log(err)
+						})
+				}
+				else
+					input.focus()
+			}
+			else {
+				this.$store.dispatch('setRenaming', list.id)
+				setTimeout(() => {
+					let input = document.querySelector(`#nameInput${ list.id }`)
+					input.focus()
+				}, 200)
+			}
 		}
 	}
 }

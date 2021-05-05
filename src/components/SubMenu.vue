@@ -1,14 +1,11 @@
 <template>
 	<transition name="grow">
-		<div class="subMenu" v-if="showingSubMenu == (item.todos ? item.id : item.index)">
-			<button
-				:class="{ deleteBtn: !renaming, cancelBtn: renaming }"
-				@click="$store.dispatch('delOrCancel', item)"
-			>
+		<div class="subMenu" v-if="showingSubMenu == item.id">
+			<button :class="{ deleteBtn: !renaming, cancelBtn: renaming }" @click="$emit('delOrCancel', item)">
 				<img :src="require('../assets/trash.svg')" v-if="!renaming" />
 				<img :src="require('../assets/cancel.svg')" v-else />
 			</button>
-			<button :class="{ renameBtn: !renaming, saveBtn: renaming }" @click="$store.dispatch('renameOrSave', item)">
+			<button :class="{ renameBtn: !renaming, saveBtn: renaming }" @click="$emit('renameOrSave', item)">
 				<img :src="require('../assets/edit.svg')" v-if="!renaming" />
 				<img :src="require('../assets/done.svg')" v-else />
 			</button>
@@ -17,7 +14,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 export default {
 	props: {
 		item: {

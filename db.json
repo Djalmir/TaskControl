@@ -4,85 +4,80 @@
       "name": "TaskControl",
       "todos": [
         {
+          "id": 0,
           "name": "Inverter ordem dos todos, de forma que o mais antigo fique no topo da lista",
-          "done": true,
-          "index": 0
+          "done": true
         },
         {
+          "id": 1,
           "name": "Rolar automaticamente para o novo todo ao adicionar",
-          "done": true,
-          "index": 1
+          "done": true
         },
         {
+          "id": 2,
           "name": "Criar submenus para os todos",
-          "done": true,
-          "index": 2
+          "done": true
         },
         {
+          "id": 3,
           "name": "permitir exclusão de todos",
-          "done": false,
-          "index": 3
+          "done": true
         },
         {
+          "id": 4,
           "name": "Permitir edição de todos",
-          "done": false,
-          "index": 4
+          "done": true
         },
         {
+          "id": 5,
           "name": "Permitir alterar ordem (mover) todos",
-          "done": false,
-          "index": 5
+          "done": false
         },
         {
+          "id": 6,
           "name": "Criar componente confirm",
-          "done": false,
-          "index": 6
+          "done": false
         },
         {
+          "id": 7,
           "name": "Botão adicionar deve ter legenda. \"+ Adicionar lista\" e \"+ Adicionar tarefa\"",
-          "done": false,
-          "index": 7
+          "done": false
         },
         {
+          "id": 8,
           "name": "Criar loadings para as chamadas do axios. Interceptar as chamadas.",
-          "done": false,
-          "index": 8
+          "done": false
         },
         {
+          "id": 9,
           "name": "Permitir user de selecionar imagem para a capa da lista",
-          "done": false,
-          "index": 9
+          "done": false
         },
         {
+          "id": 10,
           "name": "Ao adicionar todo, manter input de adição aberto",
-          "done": false,
-          "index": 10
+          "done": false
         },
         {
+          "id": 11,
           "name": "Ao adicionar todo, manter input de adição visível apesar da rolagem automática",
-          "done": false,
-          "index": 11
+          "done": false
         }
       ],
       "id": 1
     },
     {
-      "name": "Lista de Testes 1",
+      "name": "Lista de Testes",
       "todos": [
         {
-          "name": "teste 1",
-          "done": true,
-          "index": 0
+          "id": 4098417,
+          "name": "3",
+          "done": false
         },
         {
-          "name": "teste 2",
-          "done": true,
-          "index": 1
-        },
-        {
-          "name": "teste 3",
-          "done": true,
-          "index": 2
+          "id": 824769,
+          "name": "2",
+          "done": false
         }
       ],
       "id": 2
