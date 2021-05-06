@@ -50,7 +50,7 @@ export default {
 			}
 			while (this.list.todos.find(t => t.id == todo.id))
 				todo.id = 1 + Math.floor(Math.random() * 9999999)
-			let todos = [todo, ...this.list.todos]
+			let todos = [...this.list.todos, todo]
 			Axios.putList(this.list.id, this.list.name, todos)
 				.then(() => {
 					this.$store.dispatch('list/setTodos', todos)

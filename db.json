@@ -39,11 +39,6 @@
           "done": false
         },
         {
-          "id": 7,
-          "name": "Botão adicionar deve ter legenda. \"+ Adicionar lista\" e \"+ Adicionar tarefa\"",
-          "done": false
-        },
-        {
           "id": 8,
           "name": "Criar loadings para as chamadas do axios. Interceptar as chamadas.",
           "done": false
@@ -62,6 +57,26 @@
           "id": 11,
           "name": "Ao adicionar todo, manter input de adição visível apesar da rolagem automática",
           "done": false
+        },
+        {
+          "id": 9194509,
+          "name": "input de edição de todo não deve ter rolagem lateral.",
+          "done": false
+        },
+        {
+          "id": 46329,
+          "name": "Depois de editar todo o app fica sem listas. Verificar.",
+          "done": false
+        },
+        {
+          "id": 2761913,
+          "name": "Ao clicar no input de texto na edição de um todo, o app está alterando o done. Impedir que isso aconteça.",
+          "done": false
+        },
+        {
+          "id": 211210,
+          "name": "Adicionar borda na div de inserção de listas/todos de forma que contraste com todos com done==false",
+          "done": false
         }
       ],
       "id": 1
@@ -70,13 +85,28 @@
       "name": "Lista de Testes",
       "todos": [
         {
+          "id": 9020116,
+          "name": "lolzeraaa",
+          "done": false
+        },
+        {
+          "id": 420938,
+          "name": "abc 123",
+          "done": false
+        },
+        {
           "id": 4098417,
-          "name": "3",
+          "name": "teste",
           "done": false
         },
         {
           "id": 824769,
-          "name": "2",
+          "name": "lol",
+          "done": false
+        },
+        {
+          "id": 6832356,
+          "name": "uiio",
           "done": false
         }
       ],
