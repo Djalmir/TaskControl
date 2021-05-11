@@ -41,6 +41,9 @@ export default {
 			next()
 		})
 	},
+	mounted(){
+		console.log(this.list.name)
+	},
 	methods: {
 		addTodo(name) {
 			let todo = {
