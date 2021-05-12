@@ -128,17 +128,17 @@
         {
           "id": 232013,
           "name": "Armazenar última localização do botão flutuante no localstorage",
-          "done": false
+          "done": true
         },
         {
           "id": 954343,
           "name": "É possivel deixar o botão flutuante fora da tela. Corrigir para se auto ajustar aos limites da tela caso isso aconteça.",
-          "done": false
+          "done": true
         },
         {
           "id": 1501261,
           "name": "Verificar exibição de componentes HTML e também diretamente do seu innerHTML",
-          "done": false
+          "done": true
         }
       ],
       "id": 3
