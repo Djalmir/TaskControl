@@ -2,8 +2,8 @@
 	<div>
 		<BaseAddButton @add="addTodo" />
 		<div id="list">
-			<div v-for="(todo, index) in list.todos" :key="index" class="todoContainer">
-				<div class="todo" :class="{ done: todo.done }" @click="setTodoDone(todo)" @contextmenu.prevent="(e) => {
+			<div v-for="(todo) in list.todos" :key="todo.id" class="todoContainer">
+				<div class="todo" :class="{ done: todo.done }" @touchstart="setComponentClicked" @click="setTodoDone(todo)" @contextmenu.prevent="(e) => {
 							if (e.target.tagName != 'INPUT') subMenu(todo.id)
 							else e.target.select()
 						}
@@ -27,6 +27,13 @@ export default {
 		list: {
 			type: Object,
 			required: true
+		}
+	},
+	data(){
+		return{
+			componentClicked:null,
+			initialTouch:null,
+			
 		}
 	},
 	components: {
@@ -120,6 +127,10 @@ export default {
 					input.focus()
 				}, 200)
 			}
+		},
+		setComponentClicked(e){
+			this.componentClicked=e.target
+			console.log(this.componentClicked)
 		}
 	}
 }
