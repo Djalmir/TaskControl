@@ -29,12 +29,12 @@ export default {
 			required: true
 		}
 	},
-	data(){
-		return{
-			componentClicked:null,
-			initialTouch:null
-			movingTodo:null,
-			movingShadow:null
+	data() {
+		return {
+			componentClicked: null,
+			initialTouch: null,
+			movingTodo: null,
+			movingShadow: null
 		}
 	},
 	components: {
@@ -49,12 +49,12 @@ export default {
 			next()
 		})
 	},
-	beforeMount(){
-		document.body.addEventListener('touchmove',this.touchMove,{passive:false})
-		document.body.addEventListener('touchend',this.touchEnd,{passive:false})
+	beforeMount() {
+		document.body.addEventListener('touchmove', this.touchMove, {passive: false})
+		document.body.addEventListener('touchend', this.touchEnd, {passive: false})
 	},
-	watch:{
-		list(){
+	watch: {
+		list() {
 			return console.log(this.list.name)
 		}
 	},
@@ -135,19 +135,40 @@ export default {
 				}, 200)
 			}
 		},
-		setComponentClicked(e){
-			this.componentClicked=e.target
-			this.initialTouch={
+		setComponentClicked(e) {
+			this.componentClicked = e.target
+			this.initialTouch = {
 				x: e.touches[0].clientX,
 				y: e.touches[0].clientY
 			}
-			// console.log(this.componentClicked)
-			// console.log('x: ',this.initialTouch.x,' y: ',this.initialTouch.y)
+			console.log(this.componentClicked)
+			console.log('x: ', this.initialTouch.x, ' y: ', this.initialTouch.y)
 		},
-		
-		touchEnd(){
-			this.componentClicked=null
-			this.initialTouch=null
+		touchMove(e) {
+			let touchX = e.touches[e.touches.length - 1].clientX
+			let touchY = e.touches[e.touches.length - 1].clientY
+			if (!this.movingTodo) {
+				if ((touchX - this.initialTouch.x > 10 || this.initialTouch.x - touchY > 10) && (touchY <= this.initialTouch.y + 5 && touchY >= this.initialTouch.y - 5)) {
+					this.setMovingTodo()
+				}
+			}
+			else {
+				this.movingShadow.style.position = 'absolute'
+				this.movingShadow.style.top = `${ touchY }px`
+				this.movingShadow.style.left = `${ touchX }px`
+			}
+		},
+		touchEnd() {
+			this.componentClicked = null
+			this.initialTouch = null
+			this.movingTodo = null
+			this.movingShadow = null
+		},
+		setMovingTodo() {
+			this.movingTodo = this.componentClicked
+			this.movingShadow = this.movingTodo.cloneNode(true)
+			document.body.appendChild(this.movingShadow)
+			this.movingTodo.style.opacity = '.3'
 		}
 	}
 }
