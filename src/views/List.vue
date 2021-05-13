@@ -32,8 +32,9 @@ export default {
 	data(){
 		return{
 			componentClicked:null,
-			initialTouch:null,
-			
+			initialTouch:null
+			movingTodo:null,
+			movingShadow:null
 		}
 	},
 	components: {
@@ -48,8 +49,14 @@ export default {
 			next()
 		})
 	},
-	mounted(){
-		console.log(this.list.name)
+	beforeMount(){
+		document.body.addEventListener('touchmove',this.touchMove,{passive:false})
+		document.body.addEventListener('touchend',this.touchEnd,{passive:false})
+	},
+	watch:{
+		list(){
+			return console.log(this.list.name)
+		}
 	},
 	methods: {
 		addTodo(name) {
@@ -130,7 +137,17 @@ export default {
 		},
 		setComponentClicked(e){
 			this.componentClicked=e.target
-			console.log(this.componentClicked)
+			this.initialTouch={
+				x: e.touches[0].clientX,
+				y: e.touches[0].clientY
+			}
+			// console.log(this.componentClicked)
+			// console.log('x: ',this.initialTouch.x,' y: ',this.initialTouch.y)
+		},
+		
+		touchEnd(){
+			this.componentClicked=null
+			this.initialTouch=null
 		}
 	}
 }
