@@ -75,7 +75,8 @@ export default {
 			if (this.touchStart) {
 				if (!this.showingMenu && this.touchStart.clientX < 30) {
 					let left = this.touchPos.clientX - this.touchStart.clientX - 300
-					if (left <= 0) this.menuLeft = left
+					if (left <= 0)
+						this.menuLeft = left
 					e.preventDefault()
 				} else if (this.showingMenu) {
 					let left = this.touchPos.clientX - this.touchStart.clientX
@@ -86,11 +87,16 @@ export default {
 		setTouchEnd() {
 			if (this.menuLeft != undefined) {
 				if (!this.showingMenu) {
-					if (this.menuLeft >= -275) this.$store.dispatch('setShowingMenu')
-					else this.menuLeft = undefined
-				} else {
-					if (this.menuLeft <= -25) this.$store.dispatch('setShowingMenu')
-					else this.menuLeft = undefined
+					if (this.menuLeft >= -275)
+						this.$store.dispatch('setShowingMenu')
+					else
+						this.menuLeft = undefined
+				}
+				else {
+					if (this.menuLeft <= -25)
+						this.$store.dispatch('setShowingMenu')
+					else
+						this.menuLeft = undefined
 				}
 			}
 			this.touchStart = null

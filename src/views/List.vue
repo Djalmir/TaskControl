@@ -2,7 +2,7 @@
 	<div>
 		<BaseAddButton @add="addTodo" />
 		<div id="list">
-			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click="setTodoDone(todo)">
+			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click="(e)=>{if(e.target.tagName!='textarea')setTodoDone(todo)}">
 				<div class="todo" :class="{ done: todo.done }"  
 					@contextmenu.prevent="(e) => {
 						if (e.target.id != ('nameInput' + todo.id)) 
@@ -12,7 +12,7 @@
 					}
 				">
 					<img :src="require('../assets/done.svg')" :style="todo.done ? 'opacity:1' : 'opacity:0'" />
-					<textarea :value="todo.name" :id="'input' + todo.id" class="nameInput" v-if="renaming !== todo.id" disabled />
+					<pre :id="'input' + todo.id" class="nameInput" v-if="renaming !== todo.id" disabled>{{todo.name}}</pre>
 					<textarea placeholder="Nome" :id="'nameInput' + todo.id" :value="todo.name" class="nameInput" v-if="renaming === todo.id" autocomplete="off" @keypress.enter="renameOrSave(todo)" @keydown.esc="delOrCancel(todo)" />
 				</div>
 				<SubMenu :item="todo" @delOrCancel="delOrCancel" @renameOrSave="renameOrSave" />
@@ -50,30 +50,37 @@ export default {
 		...mapState(['lists', 'showingMenu', 'showingSubMenu', 'renaming'])
 	},
 	beforeRouteUpdate(to, from, next) {
-		this.$store.dispatch('list/setList', to.params.id).then(list => {
-			to.params.list = list
-			next()
-		})
+		this.$store.dispatch('list/setList', to.params.id)
+			.then(list => {
+				to.params.list = list
+				next()
+			})
 	},
 	beforeMount() {
 		document.body.addEventListener('touchmove', this.touchMove, {passive: false})
 		document.body.addEventListener('touchend', this.touchEnd, {passive: false})
 	},
 	mounted(){
-		this.list.todos.map((todo)=>{
-			let element = document.getElementById('input' + todo.id)
-			let rows = this.getHeight(element)
-			element.setAttribute('rows', rows)
-		})
+		this.setTodosHeight()
 	},
 	watch: {
 		list() {
 			console.log(this.list.name)
+			setTimeout(() => {
+				this.setTodosHeight()
+			}, 50)
 		}
 	},
 	methods: {
+		setTodosHeight(){
+			this.list.todos.map((todo)=>{
+				let element = document.getElementById('input' + todo.id)
+				let rows = this.getHeight(element)
+				element.setAttribute('rows', rows)
+			})
+		},
 		getHeight(e) {
-			return Math.floor((e.scrollHeight-8)/16)
+			return Math.floor((e.scrollHeight-4)/16)
 		},
 		addTodo(name) {
 			let todo = {
@@ -148,10 +155,10 @@ export default {
 				this.$store.dispatch('setRenaming', todo.id)
 				setTimeout(() => {
 					let input = document.querySelector(`#nameInput${ todo.id }`)
-					//let linesCount = Math.floor(input.scrollHeight/16)
-					//input.setAttribute('rows',linesCount)
+					let linesCount = Math.floor(input.scrollHeight/16)
+					input.setAttribute('rows',linesCount)
 					input.focus()
-				}, 200)
+				}, 50)
 			}
 		},
 		setComponentClicked(e, jsonMovingTodo) {
@@ -266,7 +273,7 @@ export default {
 				Object.assign(this.movingShadow.style, {
 					position: 'absolute',
 					left: '0',
-				// 	background: '#303030',
+					background: '#303030',
 				// 	padding: '12px',
 				// 	margin: '0',
 					fontWeight: 'bold',
@@ -278,7 +285,7 @@ export default {
 				// 	userSelect: 'none',
 					color: '#bdbdbd',
 				// 	width: '100%',
-					opacity: '1',
+					
 				// 	borderTop: '1px solid #bdbdbd66',
 				// 	borderBottom: '2px solid #0a0a0a66',
 					fontFamily: 'sans-serif',
@@ -368,5 +375,6 @@ export default {
 	border: none;
 	outline: none;
 	resize: none;
+	white-space: pre-wrap;
 }
 </style>
