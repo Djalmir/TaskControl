@@ -2,8 +2,8 @@
 	<div>
 		<BaseAddButton @add="addTodo" />
 		<div id="list">
-			<div v-for="(todo) in list.todos" :key="todo.id" class="todoContainer">
-				<div class="todo" :class="{ done: todo.done }" @touchstart="setComponentClicked" @click="setTodoDone(todo)" @contextmenu.prevent="(e) => {
+			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)">
+				<div class="todo" :class="{ done: todo.done }" @click="setTodoDone(todo)" @contextmenu.prevent="(e) => {
 							if (e.target.tagName != 'INPUT') subMenu(todo.id)
 							else e.target.select()
 						}
@@ -34,14 +34,17 @@ export default {
 			componentClicked: null,
 			initialTouch: null,
 			movingTodo: null,
-			movingShadow: null
+			movingShadow: null,
+			jsonMovingTodo: null,
+			scrolling: 'none',
+			scrollTimer: null
 		}
 	},
 	components: {
 		SubMenu
 	},
 	computed: {
-		...mapState(['showingSubMenu', 'renaming'])
+		...mapState(['lists', 'showingSubMenu', 'renaming'])
 	},
 	beforeRouteUpdate(to, from, next) {
 		this.$store.dispatch('list/setList', to.params.id).then(list => {
@@ -116,7 +119,6 @@ export default {
 					return Axios.putList(this.list.id, this.list.name, this.list.todos)
 						.then(() => {
 							todo.name = input.value
-							this.$store.dispatch('list/setLists', this.list.lists)
 							this.$store.dispatch('setRenaming', null)
 							this.$store.dispatch('setShowingSubMenu', null)
 						})
@@ -135,40 +137,155 @@ export default {
 				}, 200)
 			}
 		},
-		setComponentClicked(e) {
+		setComponentClicked(e, jsonMovingTodo) {
 			this.componentClicked = e.target
-			this.initialTouch = {
-				x: e.touches[0].clientX,
-				y: e.touches[0].clientY
+			this.jsonMovingTodo = jsonMovingTodo
+			while (!this.componentClicked.classList.contains('list') && !this.componentClicked.classList.contains('todoContainer'))
+				this.componentClicked = this.componentClicked.parentNode
+
+			if (this.componentClicked.classList.contains('todoContainer')) {
+				this.initialTouch = {
+					x: e.touches[0].clientX,
+					y: e.touches[0].clientY
+				}
+				// console.log(this.componentClicked)
+				// console.log('x: ', this.initialTouch.x, ' y: ', this.initialTouch.y)
 			}
-			console.log(this.componentClicked)
-			console.log('x: ', this.initialTouch.x, ' y: ', this.initialTouch.y)
+			else{
+				this.componentClicked = null
+				this.initialTouch = null
+			}
 		},
 		touchMove(e) {
-			let touchX = e.touches[e.touches.length - 1].clientX
-			let touchY = e.touches[e.touches.length - 1].clientY
-			if (!this.movingTodo) {
-				if ((touchX - this.initialTouch.x > 10 || this.initialTouch.x - touchY > 10) && (touchY <= this.initialTouch.y + 5 && touchY >= this.initialTouch.y - 5)) {
-					this.setMovingTodo()
+			if (this.componentClicked) {
+				let touchX = e.touches[e.touches.length - 1].clientX
+				let touchY = e.touches[e.touches.length - 1].clientY
+				if (!this.movingTodo) {
+					if ((touchX - this.initialTouch.x > 20 || this.initialTouch.x - touchX > 20) && (touchY <= this.initialTouch.y + 5 && touchY >= this.initialTouch.y - 5)) {
+						this.setMovingTodo()
+					}
+					else if (touchY - this.initialTouch.y > 20 || this.initialTouch.y - touchY > 20) {
+						this.componentClicked = null
+					}
 				}
-			}
-			else {
-				this.movingShadow.style.position = 'absolute'
-				this.movingShadow.style.top = `${ touchY }px`
-				this.movingShadow.style.left = `${ touchX }px`
+				else {
+					this.movingShadow.style.top = `${ touchY - (this.movingShadow.offsetHeight / 2) + window.scrollY }px`
+
+					let listDiv = document.getElementById('list')
+					let todos = Array.from(listDiv.children)
+					todos.map((todo, todoIndex) => {
+						if (todo != this.movingTodo) {
+							let todoBounds = todo.getBoundingClientRect()
+							if (touchY > todoBounds.y && touchY < todoBounds.y + todoBounds.height / 2) {
+								listDiv.insertBefore(this.movingTodo, todo)
+								if (this.list.todos.indexOf(this.jsonMovingTodo) > todoIndex) {
+									this.list.todos.splice(this.list.todos.indexOf(this.jsonMovingTodo), 1)
+									this.list.todos.splice(todoIndex, 0, this.jsonMovingTodo)
+								}
+								else {
+									this.list.todos.splice(this.list.todos.indexOf(this.jsonMovingTodo), 1)
+									this.list.todos.splice(todoIndex - 1, 0, this.jsonMovingTodo)
+								}
+							}
+							else if (touchY > todoBounds.y && touchY < todoBounds.y + todoBounds.height) {
+								listDiv.insertBefore(this.movingTodo, todo.nextSibling)
+								if (this.list.todos.indexOf(this.jsonMovingTodo) > todoIndex) {
+									this.list.todos.splice(this.list.todos.indexOf(this.jsonMovingTodo), 1)
+									this.list.todos.splice(todoIndex + 1, 0, this.jsonMovingTodo)
+								}
+								else {
+									this.list.todos.splice(this.list.todos.indexOf(this.jsonMovingTodo), 1)
+									this.list.todos.splice(todoIndex, 0, this.jsonMovingTodo)
+								}
+							}
+						}
+					})
+
+					if (touchY <= 20 * (listDiv.offsetHeight / 100)) {
+						if (this.scrolling != 'top') {
+							this.scrolling = 'top'
+							this.scrollList(listDiv)
+						}
+					}
+					else if (touchY >= 90 * (window.innerHeight / 100)) {
+						if (this.scrolling != 'bottom') {
+							this.scrolling = 'bottom'
+							this.scrollList(listDiv)
+						}
+					}
+					else {
+						this.scrolling = 'none'
+					}
+					e.preventDefault()
+				}
 			}
 		},
 		touchEnd() {
-			this.componentClicked = null
-			this.initialTouch = null
-			this.movingTodo = null
-			this.movingShadow = null
+			if (this.componentClicked) {
+				this.componentClicked = null
+				this.initialTouch = null
+				if (this.movingTodo) {
+					this.movingTodo.style = ''
+					this.movingTodo = null
+				}
+				if (this.movingShadow) {
+					document.body.removeChild(this.movingShadow)
+					this.movingShadow = null
+					Axios.putList(this.list.id, this.list.name, this.list.todos)
+						.then(() => {
+							this.$store.dispatch('list/setTodos', this.list.todos)
+						})
+						.catch(err => {
+							console.log(err.response)
+						})
+				}
+			}
 		},
 		setMovingTodo() {
-			this.movingTodo = this.componentClicked
-			this.movingShadow = this.movingTodo.cloneNode(true)
-			document.body.appendChild(this.movingShadow)
-			this.movingTodo.style.opacity = '.3'
+			if(!this.movingTodo){
+				this.movingTodo = this.componentClicked
+				this.movingShadow = this.movingTodo.cloneNode(true)
+				this.movingShadow.classList = this.movingTodo.classList
+				Object.assign(this.movingShadow.style, {
+					position: 'absolute',
+					left: '0',
+				// 	background: '#303030',
+				// 	padding: '12px',
+				// 	margin: '0',
+					fontWeight: 'bold',
+				// 	textAlign: 'left',
+				// 	display: 'flex',
+				// 	alignItems: 'center',
+				// 	boxSizing: 'border-box',
+				// 	transition: '0.2s',
+				// 	userSelect: 'none',
+					color: '#bdbdbd',
+				// 	width: '100%',
+					opacity: '1',
+				// 	borderTop: '1px solid #bdbdbd66',
+				// 	borderBottom: '2px solid #0a0a0a66',
+					fontFamily: 'sans-serif',
+					webkitFontSmoothing: 'antialiased',
+					mozOsxFontSmoothing: 'grayscale'
+				})
+				document.body.appendChild(this.movingShadow)
+				this.movingTodo.style.opacity = '.3'
+			}
+		},
+		scrollList() {
+			if (this.scrolling != 'none') {
+				window.scrollBy({
+					left: 0,
+					top: this.scrolling == 'top' ? -8 : 8
+				})
+
+				clearTimeout(this.scrollTimer)
+				this.scrollTimer = setTimeout(() => {
+					if (this.scrolling != 'none')
+						this.scrollList()
+				}, 16)
+
+			}
 		}
 	}
 }
