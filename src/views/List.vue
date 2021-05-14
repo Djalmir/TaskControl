@@ -44,7 +44,7 @@ export default {
 		SubMenu
 	},
 	computed: {
-		...mapState(['lists', 'showingSubMenu', 'renaming'])
+		...mapState(['lists', 'showingMenu', 'showingSubMenu', 'renaming'])
 	},
 	beforeRouteUpdate(to, from, next) {
 		this.$store.dispatch('list/setList', to.params.id).then(list => {
@@ -81,14 +81,16 @@ export default {
 				})
 		},
 		setTodoDone(todo) {
-			todo.done = !todo.done
-			Axios.putList(this.list.id, this.list.name, this.list.todos)
-				.then(() => {
-					this.$store.dispatch('list/setTodos', this.list.todos)
-				})
-				.catch(err => {
-					console.log(err.response)
-				})
+			if(!this.renaming&&!this.showingSubMenu){
+				todo.done = !todo.done
+				Axios.putList(this.list.id, this.list.name, this.list.todos)
+					.then(() => {
+						this.$store.dispatch('list/setTodos', this.list.todos)
+					})
+					.catch(err => {
+						console.log(err.response)
+					})
+			}
 		},
 		subMenu(id) {
 			this.$store.dispatch('setRenaming', null)
@@ -160,7 +162,7 @@ export default {
 			if (this.componentClicked) {
 				let touchX = e.touches[e.touches.length - 1].clientX
 				let touchY = e.touches[e.touches.length - 1].clientY
-				if (!this.movingTodo) {
+				if (!this.movingTodo&&!this.$parent.menuLeft) {
 					if ((touchX - this.initialTouch.x > 20 || this.initialTouch.x - touchX > 20) && (touchY <= this.initialTouch.y + 5 && touchY >= this.initialTouch.y - 5)) {
 						this.setMovingTodo()
 					}
@@ -168,7 +170,7 @@ export default {
 						this.componentClicked = null
 					}
 				}
-				else {
+				else if(!this.$parent.menuLeft){
 					this.movingShadow.style.top = `${ touchY - (this.movingShadow.offsetHeight / 2) + window.scrollY }px`
 
 					let listDiv = document.getElementById('list')
