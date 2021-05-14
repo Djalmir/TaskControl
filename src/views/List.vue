@@ -4,13 +4,13 @@
 		<div id="list">
 			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)">
 				<div class="todo" :class="{ done: todo.done }" @click="setTodoDone(todo)" @contextmenu.prevent="(e) => {
-							if (e.target.tagName != 'INPUT') subMenu(todo.id)
+							if (e.target.tagName != 'TEXTAREA') subMenu(todo.id)
 							else e.target.select()
 						}
 					">
 					<img :src="require('../assets/done.svg')" :style="todo.done ? 'opacity:1' : 'opacity:0'" />
 					<span v-if="renaming != todo.id">{{ todo.name }}</span>
-					<input type="text" placeholder="Nome" :id="'nameInput' + todo.id" :value="todo.name" class="nameInput" v-if="renaming === todo.id" autocomplete="off" @keypress.enter="renameOrSave(todo)" @keydown.esc="delOrCancel(todo)" />
+					<textarea placeholder="Nome" :id="'nameInput' + todo.id" :value="todo.name" class="nameInput" v-if="renaming === todo.id" autocomplete="off" @keypress.enter="renameOrSave(todo)" @keydown.esc="delOrCancel(todo)" />
 				</div>
 				<SubMenu :item="todo" @delOrCancel="delOrCancel" @renameOrSave="renameOrSave" />
 			</div>
@@ -135,6 +135,8 @@ export default {
 				this.$store.dispatch('setRenaming', todo.id)
 				setTimeout(() => {
 					let input = document.querySelector(`#nameInput${ todo.id }`)
+					let linesCount = Math.floor(input.scrollHeight/16)
+					input.setAttribute('rows',linesCount)
 					input.focus()
 				}, 200)
 			}
@@ -162,7 +164,7 @@ export default {
 			if (this.componentClicked) {
 				let touchX = e.touches[e.touches.length - 1].clientX
 				let touchY = e.touches[e.touches.length - 1].clientY
-				if (!this.movingTodo&&!this.$parent.menuLeft) {
+				if (!this.movingTodo&&!this.$parent.menuLeft&&!this.renaming) {
 					if ((touchX - this.initialTouch.x > 20 || this.initialTouch.x - touchX > 20) && (touchY <= this.initialTouch.y + 5 && touchY >= this.initialTouch.y - 5)) {
 						this.setMovingTodo()
 					}
@@ -170,7 +172,7 @@ export default {
 						this.componentClicked = null
 					}
 				}
-				else if(!this.$parent.menuLeft){
+				else if(!this.$parent.menuLeft&&!this.renaming){
 					this.movingShadow.style.top = `${ touchY - (this.movingShadow.offsetHeight / 2) + window.scrollY }px`
 
 					let listDiv = document.getElementById('list')
@@ -310,6 +312,8 @@ export default {
 }
 
 .todo {
+	width: 100%;
+	height: fit-content;
 	background: #303030;
 	padding: 12px;
 	margin: 0;
@@ -344,9 +348,11 @@ export default {
 	padding: 0;
 	background-color: inherit;
 	color: inherit;
+	font-family: inherit;
 	font-size: inherit;
 	font-weight: inherit;
 	border: none;
 	outline: none;
+	resize: none;
 }
 </style>
