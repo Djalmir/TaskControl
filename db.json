@@ -193,17 +193,17 @@
         {
           "id": 9249665,
           "name": "Diminuir Cabeçalho",
-          "done": false
+          "done": true
         },
         {
-          "id": 332066,
-          "name": "Ver se fica legal remover a posição sticky do cabeçalho. Já que agora a tela não terá rolagem lateral 😉 ",
-          "done": false
+          "id": 8504251,
+          "name": "impedir que haja rolagem lateral ao digitar comando extenso no console",
+          "done": true
         },
         {
           "id": 7476395,
           "name": "Mudar animação de entrada e saída para ficar mais leve e flúida",
-          "done": false
+          "done": true
         }
       ],
       "id": 3
