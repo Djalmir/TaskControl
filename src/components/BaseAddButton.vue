@@ -37,7 +37,8 @@ export default {
 		add() {
 			if (this.adding && this.name.trim() !== '') {
 				this.$emit('add', this.name)
-				this.cancelAdding()
+				//this.cancelAdding()
+				this.name = ''
 			} else {
 				this.adding = true
 				window.addEventListener('animationend', this.inputFocus)
@@ -45,7 +46,7 @@ export default {
 		},
 		scroll() {
 			let container = document.querySelector('#container')
-			if (window.scrollY > this.currentTop) {
+			if (window.scrollY > this.currentTop && !this.adding) {
 				container.style.top = '-50px'
 				container.style.opacity = '0'
 			} else {

@@ -4,11 +4,6 @@
       "name": "TaskControl",
       "todos": [
         {
-          "id": 0,
-          "name": "Inverter ordem dos todos, de forma que o mais antigo fique no topo da lista",
-          "done": true
-        },
-        {
           "id": 1,
           "name": "Rolar automaticamente para o novo todo ao adicionar",
           "done": true
@@ -51,22 +46,17 @@
         {
           "id": 10,
           "name": "Ao adicionar todo, manter input de adição aberto",
-          "done": false
+          "done": true
         },
         {
           "id": 11,
           "name": "Ao adicionar todo, manter input de adição visível apesar da rolagem automática",
-          "done": false
+          "done": true
         },
         {
           "id": 2761913,
           "name": "Ao clicar no input de texto na edição de um todo, o app está alterando o done. Impedir que isso aconteça.",
-          "done": false
-        },
-        {
-          "id": 211210,
-          "name": "Adicionar borda na div de inserção de listas/todos de forma que contraste com todos com done==false",
-          "done": false
+          "done": true
         },
         {
           "id": 6,
@@ -79,8 +69,8 @@
           "done": false
         },
         {
-          "id": 9,
-          "name": "Permitir user de selecionar imagem para a capa da lista",
+          "id": 9780112,
+          "name": "CRIAR O BACKEND... 😱😅",
           "done": false
         }
       ],
@@ -95,8 +85,18 @@
           "done": false
         },
         {
+          "id": 7378188,
+          "name": "poiu",
+          "done": false
+        },
+        {
           "id": 9426230,
           "name": "a",
+          "done": false
+        },
+        {
+          "id": 8143920,
+          "name": "pppadfg",
           "done": false
         },
         {
@@ -105,13 +105,13 @@
           "done": false
         },
         {
-          "id": 7916528,
-          "name": "d",
-          "done": true
-        },
-        {
           "id": 4353059,
           "name": "c",
+          "done": false
+        },
+        {
+          "id": 7916528,
+          "name": "d",
           "done": false
         },
         {
@@ -127,11 +127,6 @@
         {
           "id": 4381260,
           "name": "e",
-          "done": true
-        },
-        {
-          "id": 8143920,
-          "name": "pppadfg",
           "done": false
         },
         {
@@ -152,6 +147,26 @@
         {
           "id": 9020116,
           "name": "lolzeraaa",
+          "done": false
+        },
+        {
+          "id": 9456953,
+          "name": "abc",
+          "done": false
+        },
+        {
+          "id": 3926095,
+          "name": "aaaaaaa",
+          "done": false
+        },
+        {
+          "id": 4170539,
+          "name": "iuy",
+          "done": false
+        },
+        {
+          "id": 2645248,
+          "name": "awrs",
           "done": false
         }
       ],
@@ -174,6 +189,21 @@
           "id": 1501261,
           "name": "Verificar exibição de componentes HTML e também diretamente do seu innerHTML",
           "done": true
+        },
+        {
+          "id": 9249665,
+          "name": "Diminuir Cabeçalho",
+          "done": false
+        },
+        {
+          "id": 332066,
+          "name": "Ver se fica legal remover a posição sticky do cabeçalho. Já que agora a tela não terá rolagem lateral 😉 ",
+          "done": false
+        },
+        {
+          "id": 7476395,
+          "name": "Mudar animação de entrada e saída para ficar mais leve e flúida",
+          "done": false
         }
       ],
       "id": 3

@@ -2,7 +2,7 @@
 	<div>
 		<BaseAddButton @add="addTodo" />
 		<div id="list">
-			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click="(e)=>{if(e.target.tagName!='textarea')setTodoDone(todo)}">
+			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click="(e)=>{if(e.target.id!='nameInput'+todo.id)setTodoDone(todo)}">
 				<div class="todo" :class="{ done: todo.done }"  
 					@contextmenu.prevent="(e) => {
 						if (e.target.id != ('nameInput' + todo.id)) 
@@ -60,28 +60,12 @@ export default {
 		document.body.addEventListener('touchmove', this.touchMove, {passive: false})
 		document.body.addEventListener('touchend', this.touchEnd, {passive: false})
 	},
-	mounted(){
-		this.setTodosHeight()
-	},
 	watch: {
 		list() {
 			console.log(this.list.name)
-			setTimeout(() => {
-				this.setTodosHeight()
-			}, 50)
 		}
 	},
 	methods: {
-		setTodosHeight(){
-			this.list.todos.map((todo)=>{
-				let element = document.getElementById('input' + todo.id)
-				let rows = this.getHeight(element)
-				element.setAttribute('rows', rows)
-			})
-		},
-		getHeight(e) {
-			return Math.floor((e.scrollHeight-4)/16)
-		},
 		addTodo(name) {
 			let todo = {
 				id: 1 + Math.floor(Math.random() * 9999999),
@@ -162,22 +146,24 @@ export default {
 			}
 		},
 		setComponentClicked(e, jsonMovingTodo) {
-			this.componentClicked = e.target
-			this.jsonMovingTodo = jsonMovingTodo
-			while (!this.componentClicked.classList.contains('list') && !this.componentClicked.classList.contains('todoContainer'))
-				this.componentClicked = this.componentClicked.parentNode
+			if (!e.target.id.includes('nameInput')){
+				this.componentClicked = e.target
+				this.jsonMovingTodo = jsonMovingTodo
+				while (!this.componentClicked.classList.contains('list') && !this.componentClicked.classList.contains('todoContainer'))
+					this.componentClicked = this.componentClicked.parentNode
 
-			if (this.componentClicked.classList.contains('todoContainer')) {
-				this.initialTouch = {
-					x: e.touches[0].clientX,
-					y: e.touches[0].clientY
+				if (this.componentClicked.classList.contains('todoContainer')) {
+					this.initialTouch = {
+						x: e.touches[0].clientX,
+						y: e.touches[0].clientY
+					}
+					// console.log(this.componentClicked)
+					// console.log('x: ', this.initialTouch.x, ' y: ', this.initialTouch.y)
 				}
-				// console.log(this.componentClicked)
-				// console.log('x: ', this.initialTouch.x, ' y: ', this.initialTouch.y)
-			}
-			else{
-				this.componentClicked = null
-				this.initialTouch = null
+				else{
+					this.componentClicked = null
+					this.initialTouch = null
+				}
 			}
 		},
 		touchMove(e) {
@@ -248,6 +234,7 @@ export default {
 			if (this.componentClicked) {
 				this.componentClicked = null
 				this.initialTouch = null
+				this.scrolling='none'
 				if (this.movingTodo) {
 					this.movingTodo.style = ''
 					this.movingTodo = null
