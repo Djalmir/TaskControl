@@ -60,8 +60,8 @@
         },
         {
           "id": 9802608,
-          "name": "ajustar altura do todo em edição no evento oninput",
-          "done": false
+          "name": "Ajustar altura do todo em edição no evento 'oninput'\n",
+          "done": true
         },
         {
           "id": 6,
@@ -96,7 +96,7 @@
         },
         {
           "id": 8143920,
-          "name": "pppadfg",
+          "name": "asdf\n",
           "done": false
         },
         {
@@ -136,7 +136,7 @@
         },
         {
           "id": 5200311,
-          "name": "ttt\na\nasdd a a a a a a a a a a a a a a a a a a a a a a a a a a a a a aa a a",
+          "name": "ttt\na\nasdd a a a a a a ",
           "done": false
         },
         {
@@ -213,17 +213,17 @@
         {
           "id": 3267049,
           "name": "criar nomes/ids/classes melhores para todas as variáveis/componentes, de forma que nunca conflitem com nenhum código",
-          "done": false
+          "done": true
         },
         {
           "id": 2797081,
           "name": "permitir mover todos os botões",
-          "done": false
+          "done": true
         },
         {
           "id": 1737573,
           "name": "criar svg para o botão enviar",
-          "done": false
+          "done": true
         }
       ],
       "id": 3

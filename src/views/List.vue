@@ -13,7 +13,7 @@
 				">
 					<img :src="require('../assets/done.svg')" :style="todo.done ? 'opacity:1' : 'opacity:0'" />
 					<pre :id="'input' + todo.id" class="nameInput" v-if="renaming !== todo.id" disabled>{{todo.name}}</pre>
-					<textarea placeholder="Nome" :id="'nameInput' + todo.id" :value="todo.name" class="nameInput" v-if="renaming === todo.id" autocomplete="off" @keypress.enter="renameOrSave(todo)" @keydown.esc="delOrCancel(todo)" />
+					<textarea placeholder="Nome" :id="'nameInput' + todo.id" :value="todo.name" class="nameInput" v-if="renaming === todo.id" autocomplete="off" @keypress.enter="renameOrSave(todo)" @keydown.esc="delOrCancel(todo)" @input="setTodoHeight(todo.id)" />
 				</div>
 				<SubMenu :item="todo" @delOrCancel="delOrCancel" @renameOrSave="renameOrSave" />
 			</div>
@@ -138,10 +138,8 @@ export default {
 			else {
 				this.$store.dispatch('setRenaming', todo.id)
 				setTimeout(() => {
-					let input = document.querySelector(`#nameInput${ todo.id }`)
-					let linesCount = Math.floor(input.scrollHeight/16)
-					input.setAttribute('rows',linesCount)
-					input.focus()
+					this.setTodoHeight(todo.id)
+					document.querySelector(`#nameInput${ todo.id }`).focus()
 				}, 50)
 			}
 		},
@@ -297,6 +295,11 @@ export default {
 				}, 16)
 
 			}
+		},
+		setTodoHeight(todoId){
+			let input = document.querySelector(`#nameInput${ todoId }`)
+			let linesCount = Math.floor(input.scrollHeight/16)
+			input.setAttribute('rows',linesCount)
 		}
 	}
 }
