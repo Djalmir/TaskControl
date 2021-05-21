@@ -64,6 +64,11 @@
           "done": true
         },
         {
+          "id": 6415381,
+          "name": "Durante edição, depois de algumas linhas o todo começa a ficar grande demais.",
+          "done": false
+        },
+        {
           "id": 6,
           "name": "Criar componente confirm",
           "done": false
@@ -141,8 +146,8 @@
         },
         {
           "id": 420938,
-          "name": "abc 123",
-          "done": false
+          "name": "abc 123 as f f f f f f g g g g g  f f f f  ff f f f f f f f f f f f  f f f f f f f ff f f ff d d d  dd d d d f f f f f f f f f f f d d d dd  dd d  fe d f f f f f f f",
+          "done": true
         },
         {
           "id": 1461449,
@@ -211,11 +216,6 @@
           "done": true
         },
         {
-          "id": 3267049,
-          "name": "criar nomes/ids/classes melhores para todas as variáveis/componentes, de forma que nunca conflitem com nenhum código",
-          "done": true
-        },
-        {
           "id": 2797081,
           "name": "permitir mover todos os botões",
           "done": true
@@ -224,6 +224,26 @@
           "id": 1737573,
           "name": "criar svg para o botão enviar",
           "done": true
+        },
+        {
+          "id": 3267049,
+          "name": "criar nomes/ids/classes melhores para todas as variáveis/componentes, de forma que nunca conflitem com nenhum código.\nJa fiz os ids e classes. Faltam as variáveis.",
+          "done": true
+        },
+        {
+          "id": 6014947,
+          "name": "Diminuir svg do botão send",
+          "done": true
+        },
+        {
+          "id": 8481550,
+          "name": "Botão send só deve ficar visível enquanto o input estiver focado ou com value.trim()!='' - SÓ FUNCIONA SE SAIR DO CAMPO POR CONTA. ADICIONAR ESSA FUNCIONALIDADE AO ENVIAR COMANDOS TBM.",
+          "done": true
+        },
+        {
+          "id": 3713932,
+          "name": "Melhorar arraste de botões de forma que não fiquem centralizados no dedo e sim, mantenham-se na mesma posição relativa ao dedo no primeiro toque",
+          "done": false
         }
       ],
       "id": 3
