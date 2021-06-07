@@ -17,6 +17,7 @@
 				</div>
 				<SubMenu :item="todo" @delOrCancel="delOrCancel" @renameOrSave="renameOrSave" />
 			</div>
+			<Confirm ref="confirmDialog" />
 		</div>
 	</div>
 </template>
@@ -24,6 +25,7 @@
 <script>
 import Axios from '../services/Axios'
 import SubMenu from '../components/SubMenu'
+import Confirm from '../components/Confirm'
 import {mapState} from 'vuex'
 export default {
 	props: {
@@ -44,7 +46,8 @@ export default {
 		}
 	},
 	components: {
-		SubMenu
+		SubMenu,
+		Confirm
 	},
 	computed: {
 		...mapState(['lists', 'showingMenu', 'showingSubMenu', 'renaming'])
@@ -100,11 +103,11 @@ export default {
 			this.$store.dispatch('setRenaming', null)
 			this.$store.dispatch('setShowingSubMenu', id)
 		},
-		delOrCancel(todo) {
+		async delOrCancel(todo) {
 			if (this.renaming)
 				this.$store.dispatch('setRenaming', null)
 			else {
-				if (confirm(`Remover ${ todo.name }?`)) {
+				if (await this.$refs.confirmDialog.confirm('CONFIRME',`Remover ${ todo.name }?`)) {
 					let todos = this.list.todos.filter(t => t.id !== todo.id)
 					Axios.putList(this.list.id, this.list.name, todos)
 						.then(() => {

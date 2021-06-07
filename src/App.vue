@@ -28,7 +28,7 @@ export default {
 		this.getLists()
 		window.addEventListener('click', e => {
 			let target = e.target
-			if(!e.target.id.includes('nameInput')){
+			if (!e.target.id.includes('nameInput')) {
 				for (let i = 0; i < 3; i++) {
 					if (target.classList.contains('subMenu') || target.tagName == 'INPUT' || !target.parentElement) break
 					else target = target.parentElement
@@ -131,5 +131,22 @@ body {
 	text-align: center;
 	color: #bdbdbd;
 	padding-bottom: 40px;
+}
+
+.fade-enter-active {
+	animation: fade 0.2s linear;
+}
+
+.fade-leave-active {
+	animation: fade 0.2s linear reverse;
+}
+
+@keyframes fade {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 </style>

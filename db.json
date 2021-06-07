@@ -76,7 +76,7 @@
         {
           "id": 6,
           "name": "Criar componente confirm",
-          "done": false
+          "done": true
         },
         {
           "id": 8,
@@ -167,11 +167,6 @@
         {
           "id": 4170539,
           "name": "iuy",
-          "done": true
-        },
-        {
-          "id": 2645248,
-          "name": "awrs",
           "done": true
         }
       ],
