@@ -2,7 +2,7 @@
 	<div>
 		<BaseAddButton @add="addTodo" />
 		<div id="list">
-			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click="(e)=>{if(e.target.id!='nameInput'+todo.id)setTodoDone(todo)}">
+			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click.prevent="(e)=>{if(e.target.id!='nameInput'+todo.id)setTodoDone(todo)}">
 				<div class="todo" :class="{ done: todo.done }"  
 					@contextmenu.prevent="(e) => {
 						if (e.target.id != ('nameInput' + todo.id)) 
@@ -107,7 +107,7 @@ export default {
 			if (this.renaming)
 				this.$store.dispatch('setRenaming', null)
 			else {
-				if (await this.$refs.confirmDialog.confirm('CONFIRME',`Remover ${ todo.name }?`)) {
+				if (await this.$refs.confirmDialog.confirm('CONFIRME',`Deseja mesmo remover a seguinte tarefa?\n\n${todo.name}`)) {
 					let todos = this.list.todos.filter(t => t.id !== todo.id)
 					Axios.putList(this.list.id, this.list.name, todos)
 						.then(() => {
@@ -180,6 +180,7 @@ export default {
 					}
 				}
 				else if(!this.$parent.menuLeft&&!this.renaming){
+					e.preventDefault()
 					this.movingShadow.style.top = `${ touchY - (this.movingShadow.offsetHeight / 2) + window.scrollY }px`
 
 					let listDiv = document.getElementById('list')
@@ -227,7 +228,6 @@ export default {
 					else {
 						this.scrolling = 'none'
 					}
-					e.preventDefault()
 				}
 			}
 		},
@@ -281,7 +281,7 @@ export default {
 					mozOsxFontSmoothing: 'grayscale'
 				})
 				document.body.appendChild(this.movingShadow)
-				this.movingTodo.style.opacity = '.3'
+				this.movingTodo.style.opacity = '.1'
 			}
 		},
 		scrollList() {

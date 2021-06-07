@@ -9,6 +9,11 @@ const api = axios.create({
 	}
 })
 
+api.interceptors.request.use((config)=>{
+	console.log('iniciou chamada')
+	return config
+})
+
 export default {
 	getLists() {
 		return api.get(`/lists`)

@@ -4,7 +4,9 @@
 			<div id="shadow"></div>
 			<div id="confirmDiv">
 				<div id="confirmHeader">{{title}}</div>
-				<div id="confirmBody">{{message}}</div>
+				<div id="confirmBody">
+					<p id="confirmMsg"></p>
+				</div>
 				<div id="confirmFooter">
 					<button id="confirmYesBt">Sim</button>
 					<button id="confirmNoBt">Não</button>
@@ -29,6 +31,7 @@ export default {
 			this.showing = await true
 			this.title = await title
 			this.message = await message
+			document.querySelector('#confirmMsg').innerText=await this.message
 			let yesBt = await document.getElementById('confirmYesBt')
 			let noBt = await document.getElementById('confirmNoBt')
 			return new Promise((res) => {
@@ -53,10 +56,9 @@ export default {
 	left: 0;
 	top: 0;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	z-index: 2;
 }
 #shadow {
@@ -68,8 +70,12 @@ export default {
 	background: #0000004d;
 }
 #confirmDiv {
+	margin: auto;
 	z-index: 1;
 	width: 80%;
+	height: fit-content;
+	max-height: 80%;
+	box-sizing: border-box;
 	border-radius: .3rem;
 	box-shadow: 0 0 10px #0000004d;
 }
@@ -83,7 +89,10 @@ export default {
 }
 #confirmBody {
 	background: #303030;
-	padding: 40px 8px;
+	padding: 20px 8px;
+	box-sizing: border-box;
+	max-height: calc(100vh - 190px);
+	overflow-y: auto;
 }
 #confirmFooter {
 	background: #202020;

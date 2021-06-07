@@ -18,6 +18,7 @@
 				</router-link>
 				<SubMenu :item="list" @delOrCancel="delOrCancel" @renameOrSave="renameOrSave" />
 			</div>
+			<Confirm ref="confirmDialog" />
 		</div>
 	</div>
 </template>
@@ -27,13 +28,15 @@ import ListImage from '../components/ListImage'
 import SubMenu from '../components/SubMenu'
 import Axios from '../services/Axios'
 import {mapState} from 'vuex'
-import BaseAddButton from '../components/BaseAddButton.vue'
+import BaseAddButton from '../components/BaseAddButton'
+import Confirm from '../components/Confirm'
 export default {
 	name: 'Home',
 	components: {
 		ListImage,
 		BaseAddButton,
-		SubMenu
+		SubMenu,
+		Confirm
 	},
 	computed: {
 		...mapState(['list', 'showingSubMenu', 'renaming'])
@@ -55,11 +58,11 @@ export default {
 			this.$store.dispatch('setRenaming', null)
 			this.$store.dispatch('setShowingSubMenu', id)
 		},
-		delOrCancel(list) {
+		async delOrCancel(list) {
 			if (this.renaming)
 				this.$store.dispatch('setRenaming', null)
 			else {
-				if (confirm(`Remover ${ list.name }?`)) {
+				if (await this.$refs.confirmDialog.confirm('CONFIRME',`Deseja mesmo remover a lista ${ list.name }?`)) {
 					Axios.deleteList(list.id)
 						.then(() => {
 							let items = this.list.lists.filter(l => l.id != list.id)
