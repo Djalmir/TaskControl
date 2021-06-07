@@ -13,7 +13,7 @@
 				">
 					<img :src="require('../assets/done.svg')" :style="todo.done ? 'opacity:1' : 'opacity:0'" />
 					<pre :id="'input' + todo.id" class="nameInput" v-if="renaming !== todo.id" disabled>{{todo.name}}</pre>
-					<textarea placeholder="Nome" :id="'nameInput' + todo.id" :value="todo.name" class="nameInput" v-if="renaming === todo.id" autocomplete="off" @keypress.enter="renameOrSave(todo)" @keydown.esc="delOrCancel(todo)" @input="setTodoHeight(todo.id)" />
+					<textarea placeholder="Nome" :id="'nameInput' + todo.id" :value="todo.name" class="nameInput" v-if="renaming === todo.id" autocomplete="off" @keydown.esc="delOrCancel(todo)" @input="setTodoHeight(todo.id)" />
 				</div>
 				<SubMenu :item="todo" @delOrCancel="delOrCancel" @renameOrSave="renameOrSave" />
 			</div>
@@ -298,7 +298,9 @@ export default {
 		},
 		setTodoHeight(todoId){
 			let input = document.querySelector(`#nameInput${ todoId }`)
+			input.setAttribute('rows',1)
 			let linesCount = Math.floor(input.scrollHeight/16)
+			//console.log('linesCount: ',linesCount)
 			input.setAttribute('rows',linesCount)
 		}
 	}

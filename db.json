@@ -65,8 +65,13 @@
         },
         {
           "id": 6415381,
-          "name": "Durante edição, depois de algumas linhas o todo começa a ficar grande demais.",
-          "done": false
+          "name": "Durante edição, depois de algumas linhas o todo começa a ficar grande demais.\nResolvido setando a propriedade rows da textarea para 1 antes de ajustar a altura.",
+          "done": true
+        },
+        {
+          "id": 3031434,
+          "name": "Remover possibilidade de finalizar edição ao pressionar enter. Já que não estou conseguindo verificar o shiftKey no teclado do celular.",
+          "done": true
         },
         {
           "id": 6,
@@ -90,94 +95,84 @@
       "name": "Lista de Testes",
       "todos": [
         {
-          "id": 7378188,
-          "name": "poiu",
-          "done": false
-        },
-        {
-          "id": 9426230,
-          "name": "a",
-          "done": false
-        },
-        {
           "id": 8143920,
-          "name": "asdf\n",
-          "done": false
+          "name": "a",
+          "done": true
         },
         {
           "id": 7412306,
           "name": "b",
-          "done": false
+          "done": true
         },
         {
           "id": 4353059,
           "name": "c",
-          "done": false
+          "done": true
         },
         {
           "id": 7916528,
           "name": "d",
-          "done": false
+          "done": true
         },
         {
           "id": 4381260,
           "name": "e",
-          "done": false
-        },
-        {
-          "id": 824769,
-          "name": "lol",
-          "done": false
-        },
-        {
-          "id": 6832356,
-          "name": "uiio",
-          "done": false
-        },
-        {
-          "id": 4098417,
-          "name": "teste",
-          "done": false
-        },
-        {
-          "id": 5200311,
-          "name": "ttt\na\nasdd a a a a a a ",
-          "done": false
-        },
-        {
-          "id": 420938,
-          "name": "abc 123 as f f f f f f g g g g g  f f f f  ff f f f f f f f f f f f  f f f f f f f ff f f ff d d d  dd d d d f f f f f f f f f f f d d d dd  dd d  fe d f f f f f f f",
           "done": true
         },
         {
           "id": 1461449,
           "name": "f",
-          "done": false
+          "done": true
+        },
+        {
+          "id": 824769,
+          "name": "lol",
+          "done": true
+        },
+        {
+          "id": 6832356,
+          "name": "uiio",
+          "done": true
+        },
+        {
+          "id": 4098417,
+          "name": "teste",
+          "done": true
+        },
+        {
+          "id": 5200311,
+          "name": "ttt\na\nasdd a a a a a a \n\n\nlol",
+          "done": true
+        },
+        {
+          "id": 420938,
+          "name": "abc 123 as f f f f f f g g g g g  f f f f  ff f f f f f f f f f \n\n\nlol\n\nzbgsgs\n\nai sim\n\\b teste",
+          "done": true
         },
         {
           "id": 9020116,
           "name": "lolzeraaa",
-          "done": false
+          "done": true
         },
         {
           "id": 9456953,
           "name": "abc",
-          "done": false
+          "done": true
         },
         {
           "id": 3926095,
           "name": "aaaaaaa",
-          "done": false
+          "done": true
         },
         {
           "id": 4170539,
           "name": "iuy",
-          "done": false
+          "done": true
         },
         {
           "id": 2645248,
           "name": "awrs",
-          "done": false
+          "done": true
         }
       ],
       "id": 2
@@ -243,7 +238,7 @@
         {
           "id": 3713932,
           "name": "Melhorar arraste de botões de forma que não fiquem centralizados no dedo e sim, mantenham-se na mesma posição relativa ao dedo no primeiro toque",
-          "done": false
+          "done": true
         }
       ],
       "id": 3
