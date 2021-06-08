@@ -2,12 +2,14 @@
 	<div id="app">
 		<Menu :menuLeft="menuLeft" />
 		<router-view />
+		<Loading />
 	</div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
 import Menu from './components/Menu'
+import Loading from './components/Loading'
 import Axios from './services/Axios'
 export default {
 	data() {
@@ -19,7 +21,8 @@ export default {
 		}
 	},
 	components: {
-		Menu
+		Menu,
+		Loading
 	},
 	computed: {
 		...mapState(['lists', 'showingMenu'])

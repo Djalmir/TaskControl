@@ -85,8 +85,13 @@
         },
         {
           "id": 8,
-          "name": "Criar loadings para as chamadas do axios. Interceptar as chamadas.",
-          "done": false
+          "name": "Interceptar as chamadas axios",
+          "done": true
+        },
+        {
+          "id": 271183,
+          "name": "Criar svg para loading.\nExibir loading no inicio das chamadas axios e omiti-lo ao final das mesmas.",
+          "done": true
         },
         {
           "id": 9780112,
@@ -162,11 +167,6 @@
         {
           "id": 434523,
           "name": "h",
-          "done": false
-        },
-        {
-          "id": 1682091,
-          "name": "1",
           "done": false
         }
       ],

@@ -8,7 +8,8 @@ export default new Vuex.Store({
 	state: {
 		showingMenu: false,
 		showingSubMenu: null,
-		renaming: undefined
+		renaming: undefined,
+		loading: false
 	},
 	mutations: {
 		SET_SHOWING_MENU(state) {
@@ -19,6 +20,9 @@ export default new Vuex.Store({
 		},
 		SET_RENAMING(state, renaming) {
 			state.renaming = renaming
+		},
+		SET_LOADING(state, loading) {
+			state.loading = loading
 		}
 	},
 	actions: {
@@ -30,6 +34,9 @@ export default new Vuex.Store({
 		},
 		setRenaming({ commit }, renaming) {
 			commit('SET_RENAMING', renaming)
+		},
+		setLoading({ commit }, loading){
+			commit('SET_LOADING', loading)
 		}
 	},
 	modules: {
