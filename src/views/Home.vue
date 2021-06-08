@@ -62,7 +62,7 @@ export default {
 			if (this.renaming)
 				this.$store.dispatch('setRenaming', null)
 			else {
-				if (await this.$refs.confirmDialog.confirm('CONFIRME',`Deseja mesmo remover a lista ${ list.name }?`)) {
+				if (await this.$refs.confirmDialog.confirm('CONFIRME', `Deseja mesmo remover a lista ${ list.name }?`)) {
 					Axios.deleteList(list.id)
 						.then(() => {
 							let items = this.list.lists.filter(l => l.id != list.id)

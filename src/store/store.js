@@ -26,16 +26,16 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
-		setShowingMenu({ commit }) {
+		setShowingMenu({commit}) {
 			commit('SET_SHOWING_MENU')
 		},
-		setShowingSubMenu({ commit }, showingSubMenu) {
+		setShowingSubMenu({commit}, showingSubMenu) {
 			commit('SET_SHOWING_SUB_MENU', showingSubMenu)
 		},
-		setRenaming({ commit }, renaming) {
+		setRenaming({commit}, renaming) {
 			commit('SET_RENAMING', renaming)
 		},
-		setLoading({ commit }, loading){
+		setLoading({commit}, loading) {
 			commit('SET_LOADING', loading)
 		}
 	},

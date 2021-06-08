@@ -10,29 +10,32 @@ const api = axios.create({
 	}
 })
 
-api.interceptors.request.use((config)=>{
+api.interceptors.request.use((config) => {
 	//console.log('iniciou chamada')
 	store.dispatch('setLoading', true)
 	return config
-},(error)=>{
+}, (error) => {
 	store.dispatch('setLoading', false)
-	console.log('Erro na chamada: ',error)
+	console.log('Erro na chamada: ', error)
 	return Promise.reject(error)
 })
 
-api.interceptors.response.use((res)=>{
-	console.log('Retorno: ',res)
+api.interceptors.response.use((res) => {
+	console.log('Retorno: ', res)
 	store.dispatch('setLoading', false)
 	return res
-},(error)=>{
+}, (error) => {
 	store.dispatch('setLoading', false)
-	console.log('Erro no retorno: ',error)
+	console.log('Erro no retorno: ', error)
 	return Promise.reject(error)
 })
 
 export default {
 	getLists() {
 		return api.get(`/lists`)
+	},
+	getListById(id) {
+		return api.get(`/lists/${ id }`)
 	},
 	postList(name) {
 		return api.post('/lists', {
@@ -41,15 +44,12 @@ export default {
 		})
 	},
 	putList(id, name, todos) {
-		return api.put(`/lists/${id}`, {
+		return api.put(`/lists/${ id }`, {
 			name: name,
 			todos: todos
 		})
 	},
 	deleteList(id) {
-		return api.delete(`/lists/${id}`)
-	},
-	getListById(id) {
-		return api.get(`/lists/${id}`)
+		return api.delete(`/lists/${ id }`)
 	}
 }

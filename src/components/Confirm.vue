@@ -31,7 +31,7 @@ export default {
 			this.showing = await true
 			this.title = await title
 			this.message = await message
-			document.querySelector('#confirmMsg').innerText=await this.message
+			document.querySelector('#confirmMsg').innerText = await this.message
 			let yesBt = await document.getElementById('confirmYesBt')
 			let noBt = await document.getElementById('confirmNoBt')
 			return new Promise((res) => {
@@ -76,16 +76,15 @@ export default {
 	height: fit-content;
 	max-height: 80%;
 	box-sizing: border-box;
-	border-radius: .3rem;
+	border-radius: 0.3rem;
 	box-shadow: 0 0 10px #0000004d;
 }
 #confirmHeader {
 	background: #202020;
 	padding: 8px 14px;
-	text-align: left;	
-	border-radius: .4rem .4rem 0 0;
+	text-align: left;
+	border-radius: 0.4rem 0.4rem 0 0;
 	font-weight: bolder;
-
 }
 #confirmBody {
 	background: #303030;
@@ -99,7 +98,7 @@ export default {
 	display: flex;
 }
 
-button{
+button {
 	border: 1px solid #303030;
 	flex: 1;
 	height: 40px;
@@ -113,25 +112,23 @@ button{
 	color: #303030;
 }
 
-
 #confirmYesBt {
 	background: #ff5555;
-	border-radius: 0 0 0 .3rem;
+	border-radius: 0 0 0 0.3rem;
 	transform-origin: right;
 }
 
-#confirmYesBt:active{
+#confirmYesBt:active {
 	transform: rotateY(10deg);
 }
 
 #confirmNoBt {
 	background: #ff954e;
-	border-radius: 0 0 .3rem 0;
+	border-radius: 0 0 0.3rem 0;
 	transform-origin: left;
 }
 
-#confirmNoBt:active{
+#confirmNoBt:active {
 	transform: rotateY(-10deg);
 }
-
 </style>

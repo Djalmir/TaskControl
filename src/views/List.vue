@@ -3,8 +3,7 @@
 		<BaseAddButton @add="addTodo" />
 		<div id="list">
 			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click.prevent="(e)=>{if(e.target.id!='nameInput'+todo.id)setTodoDone(todo)}">
-				<div class="todo" :class="{ done: todo.done }"  
-					@contextmenu.prevent="(e) => {
+				<div class="todo" :class="{ done: todo.done }" @contextmenu.prevent="(e) => {
 						if (e.target.id != ('nameInput' + todo.id)) 
 							subMenu(todo.id)
 						else 
@@ -88,7 +87,7 @@ export default {
 				})
 		},
 		setTodoDone(todo) {
-			if(!this.renaming&&!this.showingSubMenu){
+			if (!this.renaming && !this.showingSubMenu) {
 				todo.done = !todo.done
 				Axios.putList(this.list.id, this.list.name, this.list.todos)
 					.then(() => {
@@ -107,7 +106,7 @@ export default {
 			if (this.renaming)
 				this.$store.dispatch('setRenaming', null)
 			else {
-				if (await this.$refs.confirmDialog.confirm('CONFIRME',`Deseja mesmo remover a seguinte tarefa?\n\n${todo.name}`)) {
+				if (await this.$refs.confirmDialog.confirm('CONFIRME', `Deseja mesmo remover a seguinte tarefa?\n\n${ todo.name }`)) {
 					let todos = this.list.todos.filter(t => t.id !== todo.id)
 					Axios.putList(this.list.id, this.list.name, todos)
 						.then(() => {
@@ -147,7 +146,7 @@ export default {
 			}
 		},
 		setComponentClicked(e, jsonMovingTodo) {
-			if (!e.target.id.includes('nameInput')){
+			if (!e.target.id.includes('nameInput')) {
 				this.componentClicked = e.target
 				this.jsonMovingTodo = jsonMovingTodo
 				while (!this.componentClicked.classList.contains('list') && !this.componentClicked.classList.contains('todoContainer'))
@@ -161,7 +160,7 @@ export default {
 					// console.log(this.componentClicked)
 					// console.log('x: ', this.initialTouch.x, ' y: ', this.initialTouch.y)
 				}
-				else{
+				else {
 					this.componentClicked = null
 					this.initialTouch = null
 				}
@@ -171,7 +170,7 @@ export default {
 			if (this.componentClicked) {
 				let touchX = e.touches[e.touches.length - 1].clientX
 				let touchY = e.touches[e.touches.length - 1].clientY
-				if (!this.movingTodo&&!this.$parent.menuLeft&&!this.renaming) {
+				if (!this.movingTodo && !this.$parent.menuLeft && !this.renaming) {
 					if ((touchX - this.initialTouch.x > 20 || this.initialTouch.x - touchX > 20) && (touchY <= this.initialTouch.y + 5 && touchY >= this.initialTouch.y - 5)) {
 						this.setMovingTodo()
 					}
@@ -179,7 +178,7 @@ export default {
 						this.componentClicked = null
 					}
 				}
-				else if(!this.$parent.menuLeft&&!this.renaming){
+				else if (!this.$parent.menuLeft && !this.renaming) {
 					e.preventDefault()
 					this.movingShadow.style.top = `${ touchY - (this.movingShadow.offsetHeight / 2) + window.scrollY }px`
 
@@ -235,7 +234,7 @@ export default {
 			if (this.componentClicked) {
 				this.componentClicked = null
 				this.initialTouch = null
-				this.scrolling='none'
+				this.scrolling = 'none'
 				if (this.movingTodo) {
 					this.movingTodo.style = ''
 					this.movingTodo = null
@@ -254,7 +253,7 @@ export default {
 			}
 		},
 		setMovingTodo() {
-			if(!this.movingTodo){
+			if (!this.movingTodo) {
 				this.movingTodo = this.componentClicked
 				this.movingShadow = this.movingTodo.cloneNode(true)
 				this.movingShadow.classList = this.movingTodo.classList
@@ -262,20 +261,20 @@ export default {
 					position: 'absolute',
 					left: '0',
 					background: '#303030',
-				// 	padding: '12px',
-				// 	margin: '0',
+					// 	padding: '12px',
+					// 	margin: '0',
 					fontWeight: 'bold',
-				// 	textAlign: 'left',
-				// 	display: 'flex',
-				// 	alignItems: 'center',
-				// 	boxSizing: 'border-box',
-				// 	transition: '0.2s',
-				// 	userSelect: 'none',
+					// 	textAlign: 'left',
+					// 	display: 'flex',
+					// 	alignItems: 'center',
+					// 	boxSizing: 'border-box',
+					// 	transition: '0.2s',
+					// 	userSelect: 'none',
 					color: '#bdbdbd',
-				// 	width: '100%',
-					
-				// 	borderTop: '1px solid #bdbdbd66',
-				// 	borderBottom: '2px solid #0a0a0a66',
+					// 	width: '100%',
+
+					// 	borderTop: '1px solid #bdbdbd66',
+					// 	borderBottom: '2px solid #0a0a0a66',
 					fontFamily: 'sans-serif',
 					webkitFontSmoothing: 'antialiased',
 					mozOsxFontSmoothing: 'grayscale'
@@ -299,12 +298,12 @@ export default {
 
 			}
 		},
-		setTodoHeight(todoId){
+		setTodoHeight(todoId) {
 			let input = document.querySelector(`#nameInput${ todoId }`)
-			input.setAttribute('rows',1)
-			let linesCount = Math.floor(input.scrollHeight/16)
+			input.setAttribute('rows', 1)
+			let linesCount = Math.floor(input.scrollHeight / 16)
 			//console.log('linesCount: ',linesCount)
-			input.setAttribute('rows',linesCount)
+			input.setAttribute('rows', linesCount)
 		}
 	}
 }

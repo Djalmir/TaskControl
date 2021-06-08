@@ -7,11 +7,7 @@
 			<span id="title">{{ list.list ? list.list.name : 'TaskControl' }}</span>
 		</div>
 		<transition name="shadowOpacity">
-			<div
-				id="shadow"
-				v-if="menuLeft != undefined || showingMenu"
-				@click="showingMenu && menuLeft == undefined ? showMenu() : ''"
-			></div>
+			<div id="shadow" v-if="menuLeft != undefined || showingMenu" @click="showingMenu && menuLeft == undefined ? showMenu() : ''"></div>
 		</transition>
 		<div id="nav" :class="{ showing: showingMenu, visible: menuLeft != undefined || showingMenu }">
 			<div id="navHeader">
@@ -30,7 +26,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 export default {
 	props: ['menuLeft'],
 	watch: {

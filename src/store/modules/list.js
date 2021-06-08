@@ -19,10 +19,10 @@ export const mutations = {
 }
 
 export const actions = {
-	setLists({ commit }, lists) {
+	setLists({commit}, lists) {
 		commit('SET_LISTS', lists)
 	},
-	setList({ commit, getters }, id) {
+	setList({commit, getters}, id) {
 		var list = getters.getListById(id)
 		if (list) {
 			commit('SET_LIST', list)
@@ -38,7 +38,7 @@ export const actions = {
 				})
 		}
 	},
-	setTodos({ commit }, todos) {
+	setTodos({commit}, todos) {
 		commit('SET_TODOS', todos)
 	}
 }
