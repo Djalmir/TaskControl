@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<Menu :menuLeft="menuLeft" />
+		<Menu v-if="user" :menuLeft="menuLeft" />
 		<router-view />
 		<Loading />
 	</div>
@@ -25,23 +25,23 @@ export default {
 		Loading
 	},
 	computed: {
-		...mapState(['lists', 'showingMenu'])
+		...mapState(['user', 'lists', 'showingMenu'])
 	},
 	beforeMount() {
-		this.getLists()
-		window.addEventListener('click', e => {
-			let target = e.target
-			if (!e.target.id.includes('nameInput')) {
-				for (let i = 0; i < 3; i++) {
-					if (target.classList.contains('subMenu') || target.tagName == 'INPUT' || !target.parentElement) break
-					else target = target.parentElement
-				}
-				if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
-					this.$store.dispatch('setShowingSubMenu', null)
-					this.$store.dispatch('setRenaming', null)
-				}
-			}
-		})
+		// this.getLists()
+		// window.addEventListener('click', e => {
+		// 	let target = e.target
+		// 	if (!e.target.id.includes('nameInput')) {
+		// 		for (let i = 0; i < 3; i++) {
+		// 			if (target.classList.contains('subMenu') || target.tagName == 'INPUT' || !target.parentElement) break
+		// 			else target = target.parentElement
+		// 		}
+		// 		if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
+		// 			this.$store.dispatch('setShowingSubMenu', null)
+		// 			this.$store.dispatch('setRenaming', null)
+		// 		}
+		// 	}
+		// })
 	},
 	mounted() {
 		window.addEventListener('touchstart', this.setTouchStart)
@@ -134,6 +134,42 @@ body {
 	text-align: center;
 	color: #bdbdbd;
 	padding-bottom: 40px;
+}
+
+.textInputOuter{
+	border: none;
+	padding: 0;
+	margin: 1.5em 0 2em;
+	text-align: left;
+	position: relative;
+}
+
+.textInputLabel{
+	position: absolute;
+	background-color:#fff;
+	margin:-20px 0 0 4px;
+	border:1px solid #252525;
+	border-radius:.2rem;
+	font-size:12px;
+	padding:1px 4px;
+	font-weight: bold;
+	transition: .2s;
+	cursor: text;
+}
+
+.textInputLabelEmpty{
+	margin:0 0 0 8px!important;
+	border:none!important;
+	font-size: 14px!important;
+}
+
+.textInputInner{
+	width: 100%;
+	font-size: 16px;
+	padding: 10px;
+	outline: none;
+	box-sizing: border-box;
+	border: 2px solid transparent;
 }
 
 .fade-enter-active {
