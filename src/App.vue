@@ -114,8 +114,17 @@ export default {
 
 <style>
 ::selection {
-	background-color: #bdbdbd;
+	background-color: #0099ff;
 	color: #121212;
+}
+
+:-webkit-autofill,
+:-webkit-autofill:hover,
+:-webkit-autofill:focus {
+	-webkit-box-shadow: inset 0 0 5px #0000004d, inset 0 0 0 1000px #505050 !important;
+	box-shadow: inset 0 0 5px #0000004d, inset 0 0 0 1000px #505050 !important;
+	border: 2px solid #505050 !important;
+	-webkit-text-fill-color: #ddd;
 }
 
 body {
@@ -123,6 +132,7 @@ body {
 	padding: 0;
 	background-color: #202020;
 }
+
 #app {
 	display: flex;
 	flex-direction: column;
@@ -136,40 +146,73 @@ body {
 	padding-bottom: 40px;
 }
 
-.textInputOuter{
+.textInputOuter {
 	border: none;
+	border-radius: .4rem;
 	padding: 0;
-	margin: 1.5em 0 2em;
+	margin: 30px 0 ;
 	text-align: left;
 	position: relative;
 }
 
-.textInputLabel{
+.textInputLabel {
 	position: absolute;
-	background-color:#fff;
-	margin:-20px 0 0 4px;
-	border:1px solid #252525;
-	border-radius:.2rem;
-	font-size:12px;
-	padding:1px 4px;
+	background-color: #505050;
+	margin: -16px 0 0 5px;
+	border: none;
+	border-radius: .2rem .2rem 0 0;
+	padding: 1px 4px;
+	font-size: 14px;
 	font-weight: bold;
-	transition: .2s;
+	transition: 0.2s;
 	cursor: text;
 }
 
-.textInputLabelEmpty{
-	margin:0 0 0 8px!important;
-	border:none!important;
-	font-size: 14px!important;
+.textInputLabelEmpty {
+	margin: 11px 0 0 8px !important;
+	border: none !important;
+	font-size: 16px !important;
 }
 
-.textInputInner{
+.textInputInner {
+	background: #505050;
+	color: #ddd;
 	width: 100%;
 	font-size: 16px;
 	padding: 10px;
 	outline: none;
 	box-sizing: border-box;
 	border: 2px solid transparent;
+	border-radius: .4rem;
+	letter-spacing: 1px;
+}
+
+.textInputInner:focus {
+	box-shadow: inset 0 0 5px #0000004d;
+}
+
+.greenBt {
+	outline: none;
+	border: none;
+	background-color: #c2ff7c;
+	color: #202020;
+	font-weight: bolder;
+	letter-spacing: 1px;
+	border-radius: 0.4rem;
+	margin: 10px 0;
+	padding: 8px 12px;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	box-sizing: border-box;
+}
+
+.greenBt:hover,
+.greenBt:focus{
+	box-shadow: 0 0 5px #0000004d;
+}
+
+.greenBt:active{
+	transform: scale(.98);
 }
 
 .fade-enter-active {

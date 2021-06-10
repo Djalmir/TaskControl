@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store/store'
 
 const api = axios.create({
-	baseURL: 'http://localhost:3000',
+	baseURL: 'http://localhost:3333',
 	withCredentials: false,
 	headers: {
 		Accept: 'application/json',
@@ -31,6 +31,13 @@ api.interceptors.response.use((res) => {
 })
 
 export default {
+	signUp(user){
+		return api.post(`/user/create`, user)
+	},
+	login(user){
+		return api.post(`/user/login`, user)
+	},
+
 	getLists() {
 		return api.get(`/lists`)
 	},
