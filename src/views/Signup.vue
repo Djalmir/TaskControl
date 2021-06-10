@@ -58,13 +58,13 @@ export default {
 	},
 	methods: {
 		signUp() {
-			if (this.name.trim == '')
+			if (this.name.trim() == '')
 				alert('Informe seu nome')
-			else if (this.email.trim == '')
+			else if (this.email.trim() == '')
 				alert('Informe seu email')
-			else if (this.password.trim == '')
+			else if (this.password.trim() == '')
 				alert('Digite uma senha')
-			else if (this.confirmPassword.trim == '')
+			else if (this.confirmPassword.trim() == '')
 				alert('Confirme a senha')
 			else if (this.password != this.confirmPassword)
 				alert('As senhas não coincidem')

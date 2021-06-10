@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../router/router'
+import * as session from './modules/session'
 import * as list from './modules/list'
 
 Vue.use(Vuex)
@@ -9,7 +11,8 @@ export default new Vuex.Store({
 		showingMenu: false,
 		showingSubMenu: null,
 		renaming: undefined,
-		loading: false
+		loading: false,
+		currentPath: '/'
 	},
 	mutations: {
 		SET_SHOWING_MENU(state) {
@@ -23,6 +26,9 @@ export default new Vuex.Store({
 		},
 		SET_LOADING(state, loading) {
 			state.loading = loading
+		},
+		SET_CURRENT_PATH(state, dir){
+			state.currentPath = dir
 		}
 	},
 	actions: {
@@ -37,9 +43,16 @@ export default new Vuex.Store({
 		},
 		setLoading({commit}, loading) {
 			commit('SET_LOADING', loading)
+		},
+		goTo({state, commit}, dir) {
+			if (state.currentPath != dir) {
+				commit('SET_CURRENT_PATH', dir)
+				router.push(`${ dir }`)
+			}
 		}
 	},
 	modules: {
+		session,
 		list
 	}
 })

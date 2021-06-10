@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<Menu v-if="user" :menuLeft="menuLeft" />
+		<Menu v-if="$store.state.session.user" :menuLeft="menuLeft" />
 		<router-view />
 		<Loading />
 	</div>
@@ -25,7 +25,7 @@ export default {
 		Loading
 	},
 	computed: {
-		...mapState(['user', 'lists', 'showingMenu'])
+		...mapState(['lists', 'showingMenu'])//verificar se lists é reamente necessário (acredito que essa importação nem está funcionando. Pois tentei importar o user do módulo de sessão da mesma forma e não funcionou. Tive que usar o $store.state.session.user)
 	},
 	beforeMount() {
 		// this.getLists()

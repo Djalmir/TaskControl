@@ -47,9 +47,9 @@ export default {
 	},
 	methods:{
 		login(){
-			if (this.email.trim == '')
+			if (this.email.trim() == '')
 				alert('Informe seu email')
-			else if (this.password.trim == '')
+			else if (this.password.trim() == '')
 				alert('Digite uma senha')
 			else{
 				Axios.login({
@@ -57,8 +57,10 @@ export default {
 					password:this.password
 				})
 					.then((res)=>{
-						console.log(res.data)
-						alert('Login efetuado! Agora precisa setar o usuário na store e redirecionar.')
+						console.log(res.data.user)
+						// alert('Login efetuado! Agora precisa setar o usuário na store e redirecionar.')
+						this.$store.dispatch('session/setUser', res.data.user)
+						this.$store.dispatch('goTo','/home')
 					})
 					.catch((err)=>{
 						console.log(err)

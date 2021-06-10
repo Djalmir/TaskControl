@@ -1,7 +1,7 @@
 import axios from 'axios'
 import store from '../store/store'
 
-const api = axios.create({
+const Axios = axios.create({
 	baseURL: 'http://localhost:3333',
 	withCredentials: false,
 	headers: {
@@ -10,7 +10,15 @@ const api = axios.create({
 	}
 })
 
-api.interceptors.request.use((config) => {
+const configs = () => {
+	return {
+		headers: {
+			userId: store.state.session.user._id //  VERIFICAR ESSA LINHA COM ATENÇÃO
+		}
+	}
+}
+
+Axios.interceptors.request.use((config) => {
 	//console.log('iniciou chamada')
 	store.dispatch('setLoading', true)
 	return config
@@ -20,7 +28,7 @@ api.interceptors.request.use((config) => {
 	return Promise.reject(error)
 })
 
-api.interceptors.response.use((res) => {
+Axios.interceptors.response.use((res) => {
 	console.log('Retorno: ', res)
 	store.dispatch('setLoading', false)
 	return res
@@ -32,31 +40,31 @@ api.interceptors.response.use((res) => {
 
 export default {
 	signUp(user){
-		return api.post(`/user/create`, user)
+		return Axios.post(`/user/create`, user)
 	},
 	login(user){
-		return api.post(`/user/login`, user)
+		return Axios.post(`/user/login`, user)
 	},
 
 	getLists() {
-		return api.get(`/lists`)
+		return Axios.get(`/lists`, configs())
 	},
 	getListById(id) {
-		return api.get(`/lists/${ id }`)
+		return Axios.get(`/lists/${ id }`, configs())
 	},
 	postList(name) {
-		return api.post('/lists', {
+		return Axios.post('/lists', {
 			name: name,
 			todos: []
-		})
+		}, configs())
 	},
 	putList(id, name, todos) {
-		return api.put(`/lists/${ id }`, {
+		return Axios.put(`/lists/${ id }`, {
 			name: name,
 			todos: todos
-		})
+		}, configs())
 	},
 	deleteList(id) {
-		return api.delete(`/lists/${ id }`)
+		return Axios.delete(`/lists/${ id }`, configs())
 	}
 }
