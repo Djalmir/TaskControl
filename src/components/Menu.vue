@@ -4,7 +4,7 @@
 			<button @click="showMenu">
 				<img :src="require('../assets/menu.svg')" />
 			</button>
-			<span id="title">{{ mainList.list ? mainList.list.name : 'TaskControl' }}</span>
+			<span id="title">{{ list.list ? list.list.name : 'TaskControl' }}</span>
 		</div>
 		<transition name="shadowOpacity">
 			<div id="shadow" v-if="menuLeft != undefined || showingMenu" @click="showingMenu && menuLeft == undefined ? showMenu() : ''"></div>
@@ -14,7 +14,7 @@
 				<router-link to="/home" id="homeLink">TaskControl</router-link>
 			</div>
 			<div id="navBody">
-				<template v-for="(list, index) in mainList.lists">
+				<template v-for="(list, index) in list.lists">
 					<router-link :to="'/list/' + list._id" :key="index">{{ list.name }}</router-link>
 				</template>
 			</div>
@@ -29,11 +29,6 @@
 import {mapState} from 'vuex'
 export default {
 	props: ['menuLeft'],
-	data(){
-		return{
-			mainList: []
-		}
-	},
 	watch: {
 		menuLeft() {
 			let nav = document.querySelector('#nav')
@@ -46,10 +41,6 @@ export default {
 				if (this.showingMenu) nav.classList.add('showing')
 				else nav.classList.remove('showing')
 			}
-		},
-		$route (){
-			console.log('watch list: ',this.list)
-			this.mainList = this.list
 		}
 	},
 	computed: {

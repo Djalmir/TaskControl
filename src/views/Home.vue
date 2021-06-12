@@ -60,11 +60,11 @@ export default {
 	},
 	methods: {
 		getLists() {
-			this.listsArray = []
+			let listsArray = []
 			Axios.getLists()
 				.then(res => {
-					this.listsArray = res.data.reverse()
-					this.$store.dispatch('list/setLists', this.listsArray)
+					listsArray = res.data.reverse()
+					this.$store.dispatch('list/setLists', listsArray)
 				})
 				.catch(err => {
 					console.log(err.response)

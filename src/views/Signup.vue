@@ -74,8 +74,8 @@ export default {
 					email: this.email,
 					password: this.password
 				})
-					.then((res)=>{
-						console.log(res.data)
+					.then(()=>{
+						// console.log(res.data)
 						alert('Usuário cadastrado com sucesso!')
 					})
 					.catch((err)=>{

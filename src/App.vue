@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<Menu v-if="$store.state.session.user" :menuLeft="menuLeft" />
+		<Menu v-if="session.user" :menuLeft="menuLeft" />
 		<router-view />
 		<Loading />
 	</div>
@@ -10,6 +10,7 @@
 import {mapState} from 'vuex'
 import Menu from './components/Menu'
 import Loading from './components/Loading'
+import Axios from './services/Axios'
 export default {
 	data() {
 		return {
@@ -24,9 +25,21 @@ export default {
 		Loading
 	},
 	computed: {
-		...mapState(['lists', 'showingMenu'])//verificar se lists é reamente necessário (acredito que essa importação nem está funcionando. Pois tentei importar o user do módulo de sessão da mesma forma e não funcionou. Tive que usar o $store.state.session.user)
+		...mapState(['session', 'list', 'showingMenu'])
 	},
 	mounted() {
+		if(this.session.user){
+			let listsArray = []
+			Axios.getLists()
+				.then(res => {
+					listsArray = res.data.reverse()
+					this.$store.dispatch('list/setLists', listsArray)
+				})
+				.catch(err => {
+					console.log(err.response)
+				})
+		}
+
 		window.addEventListener('touchstart', this.setTouchStart)
 		window.addEventListener('mousedown', this.setTouchStart)
 		window.addEventListener('touchmove', this.setTouchPos, {passive: false})

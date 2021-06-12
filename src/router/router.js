@@ -22,7 +22,13 @@ const routes = [
 	{
 		path: '/home',
 		name: 'Home',
-		component: Home
+		component: Home,
+		beforeEnter(to, from, next) {
+			if(store.state.session.user)
+				next()
+			else
+				next('/')
+		}
 	},
 	{
 		path: '/list/:id',
@@ -30,10 +36,14 @@ const routes = [
 		component: List,
 		props: true,
 		beforeEnter(to, from, next) {
-			store.dispatch('list/setList', to.params.id).then(list => {
-				to.params.list = list
+			if(store.state.session.user)
 				next()
-			})
+			else{
+				store.dispatch('list/setList', to.params.id).then(list => {
+					to.params.list = list
+					next()
+				})
+			}
 		}
 	}
 ]

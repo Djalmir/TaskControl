@@ -49,7 +49,7 @@ export default {
 		Confirm
 	},
 	computed: {
-		...mapState(['lists', 'showingMenu', 'showingSubMenu', 'renaming'])
+		...mapState(['showingMenu', 'showingSubMenu', 'renaming'])
 	},
 	beforeRouteUpdate(to, from, next) {
 		this.$store.dispatch('list/setList', to.params.id)
@@ -61,11 +61,6 @@ export default {
 	beforeMount() {
 		document.body.addEventListener('touchmove', this.touchMove, {passive: false})
 		document.body.addEventListener('touchend', this.touchEnd, {passive: false})
-	},
-	watch: {
-		list() {
-			console.log(this.list.name)
-		}
 	},
 	methods: {
 		addTodo(name) {

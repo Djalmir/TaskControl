@@ -29,7 +29,7 @@ Axios.interceptors.request.use((config) => {
 })
 
 Axios.interceptors.response.use((res) => {
-	console.log('Retorno: ', res)
+	// console.log('Retorno: ', res)
 	store.dispatch('setLoading', false)
 	return res
 }, (error) => {
@@ -56,7 +56,7 @@ export default {
 		return Axios.post('/list/create', {name}, configs())
 	},
 	putList(infos) {
-		console.log('infos: ',infos)
+		// console.log('infos: ',infos)
 		return Axios.put(`/list/update/${ infos._id }`, infos, configs())
 	},
 	deleteList(id) {
