@@ -24,7 +24,8 @@ Axios.interceptors.request.use((config) => {
 	return config
 }, (error) => {
 	store.dispatch('setLoading', false)
-	console.log('Erro na chamada: ', error)
+	console.log('Erro: ', error.response.data.error)
+	alert('Erro: '+ error.response.data.error)
 	return Promise.reject(error)
 })
 
@@ -34,7 +35,8 @@ Axios.interceptors.response.use((res) => {
 	return res
 }, (error) => {
 	store.dispatch('setLoading', false)
-	console.log('Erro no retorno: ', error)
+	console.log('Erro: ', error.response.data.error)
+	alert('Erro: '+ error.response.data.error)
 	return Promise.reject(error)
 })
 

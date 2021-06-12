@@ -65,9 +65,6 @@ export default {
 						this.$store.dispatch('session/setUser', res.data.user)
 						this.$store.dispatch('goTo','/home')
 					})
-					.catch((err)=>{
-						console.log(err)
-					})
 			}
 		}
 	}

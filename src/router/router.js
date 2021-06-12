@@ -36,14 +36,14 @@ const routes = [
 		component: List,
 		props: true,
 		beforeEnter(to, from, next) {
-			if(store.state.session.user)
-				next()
-			else{
+			if(store.state.session.user){
 				store.dispatch('list/setList', to.params.id).then(list => {
 					to.params.list = list
 					next()
 				})
 			}
+			else
+				next('/')
 		}
 	}
 ]

@@ -19,7 +19,8 @@
 				</template>
 			</div>
 			<div id="navFooter">
-				<p>Created by Djalmir Miodutzki</p>
+				<p>&copy; by Djalmir Miodutzki</p>
+				<span @click="logout" id="logoutBt">Sair</span>
 			</div>
 		</div>
 	</div>
@@ -49,6 +50,10 @@ export default {
 	methods: {
 		showMenu() {
 			this.$store.dispatch('setShowingMenu')
+		},
+		logout(){
+			this.$store.dispatch('session/setUser', false)
+			this.$store.dispatch('goTo', '/')
 		}
 	}
 }
@@ -124,7 +129,7 @@ button img {
 	top: 0;
 	left: -300px;
 	width: 80%;
-	height: 100vh;
+	height: 100%;
 	max-width: 300px;
 	background-color: #161616;
 	display: flex;
@@ -163,10 +168,14 @@ button img {
 	flex-direction: column;
 	border-top: 2px solid #00000066;
 	background-color: #121212;
+}
+
+#navFooter p {
+	font-size: 8pt;
 	font-style: italic;
 }
 
-a {
+a, #logoutBt {
 	text-decoration: none;
 	color: #bdbdbd;
 	font-weight: bolder;
