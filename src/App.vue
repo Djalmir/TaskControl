@@ -10,7 +10,6 @@
 import {mapState} from 'vuex'
 import Menu from './components/Menu'
 import Loading from './components/Loading'
-import Axios from './services/Axios'
 export default {
 	data() {
 		return {
@@ -27,22 +26,6 @@ export default {
 	computed: {
 		...mapState(['lists', 'showingMenu'])//verificar se lists é reamente necessário (acredito que essa importação nem está funcionando. Pois tentei importar o user do módulo de sessão da mesma forma e não funcionou. Tive que usar o $store.state.session.user)
 	},
-	beforeMount() {
-		// this.getLists()
-		// window.addEventListener('click', e => {
-		// 	let target = e.target
-		// 	if (!e.target.id.includes('nameInput')) {
-		// 		for (let i = 0; i < 3; i++) {
-		// 			if (target.classList.contains('subMenu') || target.tagName == 'INPUT' || !target.parentElement) break
-		// 			else target = target.parentElement
-		// 		}
-		// 		if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
-		// 			this.$store.dispatch('setShowingSubMenu', null)
-		// 			this.$store.dispatch('setRenaming', null)
-		// 		}
-		// 	}
-		// })
-	},
 	mounted() {
 		window.addEventListener('touchstart', this.setTouchStart)
 		window.addEventListener('mousedown', this.setTouchStart)
@@ -52,17 +35,6 @@ export default {
 		window.addEventListener('mouseup', this.setTouchEnd)
 	},
 	methods: {
-		getLists() {
-			this.listsArray = []
-			Axios.getLists()
-				.then(res => {
-					this.listsArray = res.data.reverse()
-					this.$store.dispatch('list/setLists', this.listsArray)
-				})
-				.catch(err => {
-					console.log(err.response)
-				})
-		},
 		setTouchStart(e) {
 			if (e.touches) {
 				this.touchStart = e.touches[0]

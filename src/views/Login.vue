@@ -44,6 +44,10 @@ export default {
 		document.addEventListener('focusin', () => {
 			this.activeElementId = document.activeElement.id
 		})
+		
+		if(this.$store.state.session.user){
+			this.$store.dispatch('goTo', '/home')
+		}
 	},
 	methods:{
 		login(){
@@ -57,8 +61,7 @@ export default {
 					password:this.password
 				})
 					.then((res)=>{
-						console.log(res.data.user)
-						// alert('Login efetuado! Agora precisa setar o usuário na store e redirecionar.')
+						// console.log(res.data.user)
 						this.$store.dispatch('session/setUser', res.data.user)
 						this.$store.dispatch('goTo','/home')
 					})

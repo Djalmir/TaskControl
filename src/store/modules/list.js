@@ -45,6 +45,6 @@ export const actions = {
 
 export const getters = {
 	getListById: state => id => {
-		return state.lists.find(list => list.id === Number(id))
+		return state.lists.find(list => list._id === Number(id))
 	}
 }

@@ -2,17 +2,17 @@
 	<div>
 		<BaseAddButton @add="addTodo" />
 		<div id="list">
-			<div v-for="todo in this.list.todos" :key="todo.id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click.prevent="(e)=>{if(e.target.id!='nameInput'+todo.id)setTodoDone(todo)}">
+			<div v-for="todo in this.list.todos" :key="todo._id" class="todoContainer" @touchstart="(e)=>setComponentClicked(e, todo)" @click.prevent="(e)=>{if(e.target.id!='nameInput'+todo._id)setTodoDone(todo)}">
 				<div class="todo" :class="{ done: todo.done }" @contextmenu.prevent="(e) => {
-						if (e.target.id != ('nameInput' + todo.id)) 
-							subMenu(todo.id)
+						if (e.target.id != ('nameInput' + todo._id)) 
+							subMenu(todo._id)
 						else 
 							e.target.select()
 					}
 				">
 					<img :src="require('../assets/done.svg')" :style="todo.done ? 'opacity:1' : 'opacity:0'" />
-					<pre :id="'input' + todo.id" class="nameInput" v-if="renaming !== todo.id" disabled>{{todo.name}}</pre>
-					<textarea placeholder="Nome" :id="'nameInput' + todo.id" :value="todo.name" class="nameInput" v-if="renaming === todo.id" autocomplete="off" @keydown.esc="delOrCancel(todo)" @input="setTodoHeight(todo.id)" />
+					<pre :id="'input' + todo._id" class="nameInput" v-if="renaming !== todo._id" disabled>{{todo.name}}</pre>
+					<textarea placeholder="Nome" :id="'nameInput' + todo._id" :value="todo.name" class="nameInput" v-if="renaming === todo._id" autocomplete="off" @keydown.esc="delOrCancel(todo)" @input="setTodoHeight(todo._id)" />
 				</div>
 				<SubMenu :item="todo" @delOrCancel="delOrCancel" @renameOrSave="renameOrSave" />
 			</div>
@@ -70,14 +70,18 @@ export default {
 	methods: {
 		addTodo(name) {
 			let todo = {
-				id: 1 + Math.floor(Math.random() * 9999999),
+				_id: 1 + Math.floor(Math.random() * 9999999),
 				name: name,
 				done: false
 			}
-			while (this.list.todos.find(t => t.id == todo.id))
-				todo.id = 1 + Math.floor(Math.random() * 9999999)
+			while (this.list.todos.find(t => t._id == todo._id))
+				todo._id = 1 + Math.floor(Math.random() * 9999999)
 			let todos = [...this.list.todos, todo]
-			Axios.putList(this.list.id, this.list.name, todos)
+			Axios.putList({
+				_id:this.list._id,
+				name: this.list.name,
+				todos: todos
+			})
 				.then(() => {
 					this.$store.dispatch('list/setTodos', todos)
 					window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})
@@ -89,7 +93,11 @@ export default {
 		setTodoDone(todo) {
 			if (!this.renaming && !this.showingSubMenu) {
 				todo.done = !todo.done
-				Axios.putList(this.list.id, this.list.name, this.list.todos)
+				Axios.putList({
+					_id: this.list._id,
+					name: this.list.name,
+					todos: this.list.todos
+				})
 					.then(() => {
 						this.$store.dispatch('list/setTodos', this.list.todos)
 					})
@@ -107,8 +115,12 @@ export default {
 				this.$store.dispatch('setRenaming', null)
 			else {
 				if (await this.$refs.confirmDialog.confirm('CONFIRME', `Deseja mesmo remover a seguinte tarefa?\n\n${ todo.name }`)) {
-					let todos = this.list.todos.filter(t => t.id !== todo.id)
-					Axios.putList(this.list.id, this.list.name, todos)
+					let todos = this.list.todos.filter(t => t._id !== todo._id)
+					Axios.putList({
+						_id: this.list._id,
+						name: this.list.name,
+						todos: todos
+					})
 						.then(() => {
 							this.list.todos = todos
 							this.store.dispatch('list/setTodos', todos)
@@ -121,10 +133,14 @@ export default {
 		},
 		renameOrSave(todo) {
 			if (this.renaming) {
-				let input = document.querySelector(`#nameInput${ todo.id }`)
+				let input = document.querySelector(`#nameInput${ todo._id }`)
 				if (input.value.trim() != '') {
-					this.list.todos.find(t => t.id == todo.id).name = input.value
-					return Axios.putList(this.list.id, this.list.name, this.list.todos)
+					this.list.todos.find(t => t._id == todo._id).name = input.value
+					return Axios.putList({
+						_id: this.list._id,
+						name: this.list.name,
+						todos: this.list.todos
+					})
 						.then(() => {
 							todo.name = input.value
 							this.$store.dispatch('setRenaming', null)
@@ -138,10 +154,10 @@ export default {
 					input.focus()
 			}
 			else {
-				this.$store.dispatch('setRenaming', todo.id)
+				this.$store.dispatch('setRenaming', todo._id)
 				setTimeout(() => {
-					this.setTodoHeight(todo.id)
-					document.querySelector(`#nameInput${ todo.id }`).focus()
+					this.setTodoHeight(todo._id)
+					document.querySelector(`#nameInput${ todo._id }`).focus()
 				}, 50)
 			}
 		},
@@ -242,7 +258,11 @@ export default {
 				if (this.movingShadow) {
 					document.body.removeChild(this.movingShadow)
 					this.movingShadow = null
-					Axios.putList(this.list.id, this.list.name, this.list.todos)
+					Axios.putList({
+						_id: this.list._id,
+						name: this.list.name,
+						todos: this.list.todos
+					})
 						.then(() => {
 							this.$store.dispatch('list/setTodos', this.list.todos)
 						})

@@ -1,6 +1,6 @@
 <template>
 	<transition name="grow">
-		<div class="subMenu" v-if="showingSubMenu == item.id">
+		<div class="subMenu" v-if="showingSubMenu == item._id">
 			<button :class="{ deleteBtn: !renaming, cancelBtn: renaming }" @click="$emit('delOrCancel', item)">
 				<img :src="require('../assets/trash.svg')" v-if="!renaming" />
 				<img :src="require('../assets/cancel.svg')" v-else />

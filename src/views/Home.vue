@@ -3,16 +3,16 @@
 		<BaseAddButton @add="addList" />
 		<div id="list">
 			<div v-for="(list, index) in list.lists" :key="index" class="linkContainer">
-				<router-link :to="'/list/' + list.id">
+				<router-link :to="'/list/' + list._id">
 					<figure @contextmenu.prevent="(e) => {
-								if (e.target.tagName != 'INPUT') subMenu(list.id)
+								if (e.target.tagName != 'INPUT') subMenu(list._id)
 								else e.target.select()
 							}
 						">
 						<ListImage :list="list" class="listImage" />
 						<figcaption>
-							<div v-if="renaming != list.id">{{ list.name }}</div>
-							<input type="text" placeholder="Nome" :id="'nameInput' + list.id" :value="list.name" class="nameInput" v-if="renaming == list.id" autocomplete="off" @keypress.enter="renameOrSave(list)" @keydown.esc="delOrCancel(list)" />
+							<div v-if="renaming != list._id">{{ list.name }}</div>
+							<input type="text" placeholder="Nome" :id="'nameInput' + list._id" :value="list.name" class="nameInput" v-if="renaming == list._id" autocomplete="off" @keypress.enter="renameOrSave(list)" @keydown.esc="delOrCancel(list)" />
 						</figcaption>
 					</figure>
 				</router-link>
@@ -43,8 +43,33 @@ export default {
 	},
 	beforeMount() {
 		this.list.list = null
+		this.getLists()
+		window.addEventListener('click', e => {
+			let target = e.target
+			if (!e.target.id.includes('nameInput')) {
+				for (let i = 0; i < 3; i++) {
+					if (target.classList.contains('subMenu') || target.tagName == 'INPUT' || !target.parentElement) break
+					else target = target.parentElement
+				}
+				if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
+					this.$store.dispatch('setShowingSubMenu', null)
+					this.$store.dispatch('setRenaming', null)
+				}
+			}
+		})
 	},
 	methods: {
+		getLists() {
+			this.listsArray = []
+			Axios.getLists()
+				.then(res => {
+					this.listsArray = res.data.reverse()
+					this.$store.dispatch('list/setLists', this.listsArray)
+				})
+				.catch(err => {
+					console.log(err.response)
+				})
+		},
 		addList(name) {
 			Axios.postList(name)
 				.then(res => {
@@ -63,9 +88,9 @@ export default {
 				this.$store.dispatch('setRenaming', null)
 			else {
 				if (await this.$refs.confirmDialog.confirm('CONFIRME', `Deseja mesmo remover a lista ${ list.name }?`)) {
-					Axios.deleteList(list.id)
+					Axios.deleteList(list._id)
 						.then(() => {
-							let items = this.list.lists.filter(l => l.id != list.id)
+							let items = this.list.lists.filter(l => l.id != list._id)
 							this.$store.dispatch('list/setLists', items, {root: true})
 						})
 						.catch(err => {
@@ -76,9 +101,13 @@ export default {
 		},
 		renameOrSave(list) {
 			if (this.renaming) {
-				let input = document.querySelector(`#nameInput${ list.id }`)
+				let input = document.querySelector(`#nameInput${ list._id }`)
 				if (input.value.trim() != '') {
-					return Axios.putList(list.id, input.value, list.todos)
+					return Axios.putList({
+						_id: list._id,
+						name: input.value,
+						todos: list.todos
+					})
 						.then(() => {
 							list.name = input.value
 							this.$store.dispatch('list/setLists', this.list.lists)
@@ -93,9 +122,9 @@ export default {
 					input.focus()
 			}
 			else {
-				this.$store.dispatch('setRenaming', list.id)
+				this.$store.dispatch('setRenaming', list._id)
 				setTimeout(() => {
-					let input = document.querySelector(`#nameInput${ list.id }`)
+					let input = document.querySelector(`#nameInput${ list._id }`)
 					input.focus()
 				}, 200)
 			}

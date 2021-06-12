@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store/store'
 
 const Axios = axios.create({
-	baseURL: 'http://localhost:3333',
+	baseURL: 'http://192.168.100.100:3333',
 	withCredentials: false,
 	headers: {
 		Accept: 'application/json',
@@ -13,7 +13,7 @@ const Axios = axios.create({
 const configs = () => {
 	return {
 		headers: {
-			userId: store.state.session.user._id //  VERIFICAR ESSA LINHA COM ATENÇÃO
+			user_id: store.state.session.user._id //  VERIFICAR ESSA LINHA COM ATENÇÃO
 		}
 	}
 }
@@ -39,32 +39,27 @@ Axios.interceptors.response.use((res) => {
 })
 
 export default {
-	signUp(user){
-		return Axios.post(`/user/create`, user)
+	signUp(user) {
+		return Axios.post(`/session/signup`, user)
 	},
-	login(user){
-		return Axios.post(`/user/login`, user)
+	login(user) {
+		return Axios.post(`/session/login`, user)
 	},
 
 	getLists() {
-		return Axios.get(`/lists`, configs())
+		return Axios.get(`/list/listAll`, configs())
 	},
 	getListById(id) {
-		return Axios.get(`/lists/${ id }`, configs())
+		return Axios.get(`/list/listOne/${ id }`, configs())
 	},
 	postList(name) {
-		return Axios.post('/lists', {
-			name: name,
-			todos: []
-		}, configs())
+		return Axios.post('/list/create', {name}, configs())
 	},
-	putList(id, name, todos) {
-		return Axios.put(`/lists/${ id }`, {
-			name: name,
-			todos: todos
-		}, configs())
+	putList(infos) {
+		console.log('infos: ',infos)
+		return Axios.put(`/list/update/${ infos._id }`, infos, configs())
 	},
 	deleteList(id) {
-		return Axios.delete(`/lists/${ id }`, configs())
+		return Axios.delete(`/list/delete/${ id }`, configs())
 	}
 }
