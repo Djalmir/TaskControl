@@ -122,7 +122,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	overflow-x: hidden;
 	height: 100%;
 	font-family: sans-serif;
 	-webkit-font-smoothing: antialiased;
