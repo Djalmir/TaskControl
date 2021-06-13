@@ -27,7 +27,8 @@ export const actions = {
 		if (list) {
 			commit('SET_LIST', list)
 			return list
-		} else {
+		} 
+		else if(id) {
 			return Axios.getListById(id)
 				.then(res => {
 					commit('SET_LIST', res.data)

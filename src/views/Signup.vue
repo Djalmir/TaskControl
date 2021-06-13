@@ -12,19 +12,19 @@
 				<div id="signupForm">
 					<p class="textInputOuter">
 						<label for="nameInput" class="textInputLabel" :class="{'textInputLabelEmpty':name==''&&activeElementId!='nameInput'}">Nome</label>
-						<input type="text" name="nameInput" id="nameInput" class="textInputInner" v-model="name" @blur="activeElementId=null" />
+						<input type="text" name="nameInput" id="nameInput" class="textInputInner" @keydown.enter="signUp" v-model="name" @blur="activeElementId=null" />
 					</p>
 					<p class="textInputOuter">
 						<label for="emailInput" class="textInputLabel" :class="{'textInputLabelEmpty':email==''&&activeElementId!='emailInput'}">Email</label>
-						<input type="email" name="emailInput" id="emailInput" class="textInputInner" v-model="email" @blur="activeElementId=null" />
+						<input type="email" name="emailInput" id="emailInput" class="textInputInner" @keydown.enter="signUp" v-model="email" @blur="activeElementId=null" />
 					</p>
 					<p class="textInputOuter">
 						<label for="passwordInput" class="textInputLabel" :class="{'textInputLabelEmpty':password==''&&activeElementId!='passwordInput'}">Senha</label>
-						<input type="password" name="passwordInput" id="passwordInput" class="textInputInner" v-model="password" @blur="activeElementId=null" />
+						<input type="password" name="passwordInput" id="passwordInput" class="textInputInner" @keydown.enter="signUp" v-model="password" @blur="activeElementId=null" />
 					</p>
 					<p class="textInputOuter">
 						<label for="confirmPasswordInput" class="textInputLabel" :class="{'textInputLabelEmpty':confirmPassword==''&&activeElementId!='confirmPasswordInput'}">Confirme a senha</label>
-						<input type="password" name="confirmPasswordInput" id="confirmPasswordInput" class="textInputInner" v-model="confirmPassword" @blur="activeElementId=null" />
+						<input type="password" name="confirmPasswordInput" id="confirmPasswordInput" class="textInputInner" @keydown.enter="signUp" v-model="confirmPassword" @blur="activeElementId=null" />
 					</p>
 					<button class="greenBt" id="signupBt" @click="signUp">Cadastrar</button>
 				</div>

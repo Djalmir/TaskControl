@@ -12,13 +12,13 @@
 				<div id="loginForm">
 					<p class="textInputOuter">
 						<label for="emailInput" class="textInputLabel" :class="{'textInputLabelEmpty':email==''&&activeElementId!='emailInput'}">Email</label>
-						<input type="email" name="emailInput" id="emailInput" class="textInputInner" v-model="email" @blur="activeElementId=null"/>
+						<input type="email" name="emailInput" id="emailInput" class="textInputInner" @keydown.enter="login" v-model="email" @blur="activeElementId=null"/>
 					</p>
 					<p class="textInputOuter">
 						<label for="passwordInput" class="textInputLabel" :class="{'textInputLabelEmpty':password==''&&activeElementId!='passwordInput'}">Senha</label>
-						<input type="password" name="passwordInput" id="passwordInput" class="textInputInner" v-model="password" @blur="activeElementId=null"/>
+						<input type="password" name="passwordInput" id="passwordInput" class="textInputInner" @keydown.enter="login" v-model="password" @blur="activeElementId=null"/>
 					</p>
-					<button class="greenBt" id="loginBt" @click="login">Entrar</button>
+					<button @click="login" class="greenBt" id="loginBt">Entrar</button>
 				</div>
 				<p>
 					Ainda não tem um cadastro? <br/>

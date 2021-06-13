@@ -52,6 +52,8 @@ export default {
 			this.$store.dispatch('setShowingMenu')
 		},
 		logout(){
+			this.$store.dispatch('list/setList', null)
+			this.$store.dispatch('list/setLists', null)
 			this.$store.dispatch('session/setUser', false)
 			this.$store.dispatch('goTo', '/')
 		}

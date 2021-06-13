@@ -73,7 +73,7 @@ export default {
 				todo._id = 1 + Math.floor(Math.random() * 9999999)
 			let todos = [...this.list.todos, todo]
 			Axios.putList({
-				_id:this.list._id,
+				_id: this.list._id,
 				name: this.list.name,
 				todos: todos
 			})
@@ -177,12 +177,27 @@ export default {
 				}
 			}
 		},
+		setShadowPos(e) {
+			let touchX = e.touches[e.touches.length - 1].clientX
+			let touchY = e.touches[e.touches.length - 1].clientY
+			
+			this.movingShadow.style.top = `${ touchY - this.initialTouch.y + window.scrollY }px`
+			let x = touchX - this.initialTouch.x
+			if (x < 0)
+				x = 0
+			else if (x + this.movingShadow.offsetWidth > window.innerWidth)
+				x = window.innerWidth - this.movingShadow.innerWidth
+			this.movingShadow.style.left = `${ x }px`
+		},
 		touchMove(e) {
 			if (this.componentClicked) {
 				let touchX = e.touches[e.touches.length - 1].clientX
 				let touchY = e.touches[e.touches.length - 1].clientY
+
 				if (!this.movingTodo && !this.$parent.menuLeft && !this.renaming) {
 					if ((touchX - this.initialTouch.x > 20 || this.initialTouch.x - touchX > 20) && (touchY <= this.initialTouch.y + 5 && touchY >= this.initialTouch.y - 5)) {
+						this.initialTouch.x = touchX - this.componentClicked.offsetLeft
+						this.initialTouch.y = touchY - this.componentClicked.offsetTop + window.scrollY
 						this.setMovingTodo()
 					}
 					else if (touchY - this.initialTouch.y > 20 || this.initialTouch.y - touchY > 20) {
@@ -191,7 +206,8 @@ export default {
 				}
 				else if (!this.$parent.menuLeft && !this.renaming) {
 					e.preventDefault()
-					this.movingShadow.style.top = `${ touchY - (this.movingShadow.offsetHeight / 2) + window.scrollY }px`
+
+					this.setShadowPos(e)
 
 					let listDiv = document.getElementById('list')
 					let todos = Array.from(listDiv.children)
@@ -223,22 +239,34 @@ export default {
 						}
 					})
 
-					if (touchY <= 20 * (listDiv.offsetHeight / 100)) {
-						if (this.scrolling != 'top') {
-							this.scrolling = 'top'
-							this.scrollList(listDiv)
+					if(touchY <= 20 * (window.innerHeight / 100)) {
+						if (this.scrolling != 'fast-top') {
+							this.scrolling = 'fast-top'
+							this.scrollList()
+						}
+					}
+					else if (touchY <= 30 * (window.innerHeight / 100)) {
+						if (this.scrolling != 'slow-top') {
+							this.scrolling = 'slow-top'
+							this.scrollList()
 						}
 					}
 					else if (touchY >= 90 * (window.innerHeight / 100)) {
-						if (this.scrolling != 'bottom') {
-							this.scrolling = 'bottom'
-							this.scrollList(listDiv)
+						if (this.scrolling != 'fast-bottom') {
+							this.scrolling = 'fast-bottom'
+							this.scrollList()
+						}
+					}
+					else if (touchY >= 80 * (window.innerHeight / 100)) {
+						if (this.scrolling != 'slow-bottom') {
+							this.scrolling = 'slow-bottom'
+							this.scrollList()
 						}
 					}
 					else {
 						this.scrolling = 'none'
 					}
-				}
+				}				
 			}
 		},
 		touchEnd() {
@@ -274,22 +302,10 @@ export default {
 				this.movingShadow.classList = this.movingTodo.classList
 				Object.assign(this.movingShadow.style, {
 					position: 'absolute',
-					left: '0',
 					background: '#303030',
-					// 	padding: '12px',
-					// 	margin: '0',
 					fontWeight: 'bold',
-					// 	textAlign: 'left',
-					// 	display: 'flex',
-					// 	alignItems: 'center',
-					// 	boxSizing: 'border-box',
-					// 	transition: '0.2s',
-					// 	userSelect: 'none',
 					color: '#bdbdbd',
-					// 	width: '100%',
-
-					// 	borderTop: '1px solid #bdbdbd66',
-					// 	borderBottom: '2px solid #0a0a0a66',
+					width: 'calc(100% - 20px)',
 					fontFamily: 'sans-serif',
 					webkitFontSmoothing: 'antialiased',
 					mozOsxFontSmoothing: 'grayscale'
@@ -300,9 +316,17 @@ export default {
 		},
 		scrollList() {
 			if (this.scrolling != 'none') {
+
+				let scrollTypes = {
+					"slow-top": -4,
+					"fast-top": -8,
+					"slow-bottom": 4,
+					"fast-bottom": 8
+				}
+
 				window.scrollBy({
 					left: 0,
-					top: this.scrolling == 'top' ? -8 : 8
+					top: scrollTypes[this.scrolling]
 				})
 
 				clearTimeout(this.scrollTimer)
@@ -327,17 +351,20 @@ export default {
 <style scoped>
 #list {
 	margin: 60px auto;
-	padding: 20px 0;
-	display: flex;
-	justify-content: flex-start;
-	flex-direction: column;
+	padding: 0 8px;
+	box-sizing: border-box;
 }
 
 .todoContainer {
 	width: 100%;
+	max-width: 480px;
+	height: fit-content;
 	margin: 4px auto;
+	padding: 0 2px;
+	box-sizing: border-box;
 	border-top: 1px solid #bdbdbd66;
 	border-bottom: 2px solid #0a0a0a66;
+	border-radius: 0.2rem;
 }
 
 .todo {
