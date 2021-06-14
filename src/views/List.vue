@@ -239,25 +239,25 @@ export default {
 						}
 					})
 
-					if(touchY <= 20 * (window.innerHeight / 100)) {
+					if(touchY <= 30 * (window.innerHeight / 100)) {
 						if (this.scrolling != 'fast-top') {
 							this.scrolling = 'fast-top'
 							this.scrollList()
 						}
 					}
-					else if (touchY <= 30 * (window.innerHeight / 100)) {
+					else if (touchY <= 40 * (window.innerHeight / 100)) {
 						if (this.scrolling != 'slow-top') {
 							this.scrolling = 'slow-top'
 							this.scrollList()
 						}
 					}
-					else if (touchY >= 90 * (window.innerHeight / 100)) {
+					else if (touchY >= 80 * (window.innerHeight / 100)) {
 						if (this.scrolling != 'fast-bottom') {
 							this.scrolling = 'fast-bottom'
 							this.scrollList()
 						}
 					}
-					else if (touchY >= 80 * (window.innerHeight / 100)) {
+					else if (touchY >= 70 * (window.innerHeight / 100)) {
 						if (this.scrolling != 'slow-bottom') {
 							this.scrolling = 'slow-bottom'
 							this.scrollList()

@@ -20,7 +20,11 @@
 			</div>
 			<div id="navFooter">
 				<p>&copy; by Djalmir Miodutzki</p>
-				<span @click="logout" id="logoutBt">Sair</span>
+				<div @click="logout" id="logoutContainer">
+					<router-link to="#" id="logoutBt"> 
+						Sair
+					</router-link>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -168,20 +172,27 @@ button img {
 #navFooter {
 	display: flex;
 	flex-direction: column;
-	border-top: 2px solid #00000066;
-	background-color: #121212;
+	background-color: #0a0a0a;
+	border-radius: .2rem .2rem 0 0;
+}
+
+#logoutContainer {
+	display: flex;
+	flex-direction: column;
 }
 
 #navFooter p {
-	font-size: 8pt;
+	font-size: 6pt;
 	font-style: italic;
+	margin: 0;
+	line-height: 16px;
 }
 
-a, #logoutBt {
+a {
 	text-decoration: none;
 	color: #bdbdbd;
 	font-weight: bolder;
-	background-color: #121212;
+	background-color: #101010;
 	padding: 12px 0;
 	border-top: 1px solid #202020;
 	border-bottom: 1px solid #0a0a0a;
