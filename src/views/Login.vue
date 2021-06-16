@@ -26,13 +26,18 @@
 				</p>
 			</div>			
 		</div>
+		<Message ref="Message" />
 	</div>
 </template>
 
 <script>
+import Message from '../components/Message'
 import Axios from '../services/Axios'
 export default {
 	name: 'Login',
+	components:{
+		Message
+	},
 	data() {
 		return {
 			email: '',
@@ -50,11 +55,11 @@ export default {
 		}
 	},
 	methods:{
-		login(){
+		async login(){
 			if (this.email.trim() == '')
-				alert('Informe seu email')
+				await this.$refs.Message.show('Por favor', 'Informe seu email')
 			else if (this.password.trim() == '')
-				alert('Digite uma senha')
+				await this.$refs.Message.show('Por favor', 'Digite uma senha')
 			else{
 				Axios.login({
 					email:this.email,

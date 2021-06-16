@@ -2,7 +2,8 @@ import axios from 'axios'
 import store from '../store/store'
 
 const Axios = axios.create({
-	baseURL: 'http://192.168.100.100:3333',
+	//baseURL: 'http://192.168.100.100:3333',
+	baseURL: 'https://razion-apis.herokuapp.com/',
 	withCredentials: false,
 	headers: {
 		Accept: 'application/json',

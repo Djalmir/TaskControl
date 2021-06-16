@@ -66,17 +66,11 @@ export default {
 					listsArray = res.data.reverse()
 					this.$store.dispatch('list/setLists', listsArray)
 				})
-				.catch(err => {
-					console.log(err.response)
-				})
 		},
 		addList(name) {
 			Axios.postList(name)
 				.then(res => {
 					this.$store.dispatch('list/setLists', [res.data, ...this.list.lists])
-				})
-				.catch(err => {
-					console.log(err)
 				})
 		},
 		subMenu(id) {
@@ -92,9 +86,7 @@ export default {
 						.then(() => {
 							let items = this.list.lists.filter(l => l.id != list._id)
 							this.$store.dispatch('list/setLists', items, {root: true})
-						})
-						.catch(err => {
-							console.log(err)
+							this.getLists()
 						})
 				}
 			}
@@ -113,9 +105,6 @@ export default {
 							this.$store.dispatch('list/setLists', this.list.lists)
 							this.$store.dispatch('setRenaming', null)
 							this.$store.dispatch('setShowingSubMenu', null)
-						})
-						.catch(err => {
-							console.log(err)
 						})
 				}
 				else

@@ -35,9 +35,6 @@ export default {
 					listsArray = res.data.reverse()
 					this.$store.dispatch('list/setLists', listsArray)
 				})
-				.catch(err => {
-					console.log(err.response)
-				})
 		}
 
 		window.addEventListener('touchstart', this.setTouchStart)
