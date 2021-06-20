@@ -109,6 +109,22 @@ export default {
 </script>
 
 <style>
+::-webkit-scrollbar {
+	background: transparent;
+	width: 8px;
+	height: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(to bottom, #161616, #303030, #161616);
+	box-shadow: inset 0px 0px 5px #00000080;
+	border-radius: .2rem 0 0 .2rem;
+}
+
 ::selection {
 	background-color: #0099ff;
 	color: #121212;
