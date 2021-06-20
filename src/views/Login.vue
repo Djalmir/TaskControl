@@ -55,11 +55,11 @@ export default {
 		}
 	},
 	methods:{
-		async login(){
+		login(){
 			if (this.email.trim() == '')
-				await this.$refs.Message.show('Por favor', 'Informe seu email')
+				this.$store.dispatch('showMessage',{title:'Por favor', msg:'Informe seu email'})
 			else if (this.password.trim() == '')
-				await this.$refs.Message.show('Por favor', 'Digite uma senha')
+			 	this.$store.dispatch('showMessage',{title:'Por favor', msg:'Digite uma senha'})
 			else{
 				Axios.login({
 					email:this.email,

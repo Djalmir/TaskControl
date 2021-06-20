@@ -26,7 +26,8 @@ Axios.interceptors.request.use((config) => {
 }, (error) => {
 	store.dispatch('setLoading', false)
 	console.log('Erro: ', error.response.data.error)
-	alert('Erro: '+ error.response.data.error)
+	//alert('Erro: '+ error.response.data.error)
+	store.dispatch('showMessage',{title:'Erro', msg:error.response.data.error})
 	return Promise.reject(error)
 })
 
@@ -37,7 +38,8 @@ Axios.interceptors.response.use((res) => {
 }, (error) => {
 	store.dispatch('setLoading', false)
 	console.log('Erro: ', error.response.data.error)
-	alert('Erro: '+ error.response.data.error)
+	//alert('Erro: '+ error.response.data.error)
+	store.dispatch('showMessage',{title:'Erro', msg:error.response.data.error})
 	return Promise.reject(error)
 })
 

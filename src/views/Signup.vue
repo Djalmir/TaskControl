@@ -35,12 +35,10 @@
 				</p>
 			</div>
 		</div>
-		<Message ref="Message" />
 	</div>
 </template>
 
 <script>
-import Message from '../components/Message'
 import Axios from '../services/Axios'
 export default {
 	name: 'Signup',
@@ -53,9 +51,6 @@ export default {
 			activeElementId: null
 		}
 	},
-	components:{
-		Message
-	},
 	mounted() {
 		document.addEventListener('focusin', () => {
 			this.activeElementId = document.activeElement.id
@@ -64,15 +59,15 @@ export default {
 	methods: {
 		signUp() {
 			if (this.name.trim() == '')
-				this.$refs.Message.show('Por favor', 'Informe seu nome')
+				this.$store.dispatch('showMessage', {title:'Por favor', msg:'Informe seu nome'})
 			else if (this.email.trim() == '')
-				this.$refs.Message.show('Por favor', 'Informe seu email')
+				this.$store.dispatch('showMessage', {title:'Por favor', msg:'Informe seu email'})
 			else if (this.password.trim() == '')
-				this.$refs.Message.show('Por favor', 'Digite uma senha')
+				this.$store.dispatch('showMessage', {title:'Por favor', msg:'Digite uma senha'})
 			else if (this.confirmPassword.trim() == '')
-				this.$refs.Message.show('Por favor', 'Confirme a senha')
+				this.$store.dispatch('showMessage', {title:'Por favor', msg:'Confirme a senha'})
 			else if (this.password != this.confirmPassword)
-				this.$refs.Message.show('Por favor', 'As senhas não coincidem')
+				this.$store.dispatch('showMessage', {title:'Erro', msg:'As senhas não coincidem'})
 			else {
 				Axios.signUp({
 					name: this.name,
@@ -81,7 +76,7 @@ export default {
 				})
 					.then(()=>{
 						// console.log(res.data)
-						this.$refs.Message.show('', 'Usuário cadastrado com sucesso!')
+						this.$store.dispatch('showMessage', {title:'Boas vindas!', msg:'Seu cadastro foi efetuado com successo!'})
 					})
 			}
 		}

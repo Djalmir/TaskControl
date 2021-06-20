@@ -12,7 +12,8 @@ export default new Vuex.Store({
 		showingSubMenu: null,
 		renaming: undefined,
 		loading: false,
-		currentPath: '/'
+		currentPath: '/',
+		message:null
 	},
 	mutations: {
 		SET_SHOWING_MENU(state) {
@@ -29,6 +30,9 @@ export default new Vuex.Store({
 		},
 		SET_CURRENT_PATH(state, dir){
 			state.currentPath = dir
+		},
+		SET_MESSAGE(state, message){
+			state.message = message
 		}
 	},
 	actions: {
@@ -49,6 +53,9 @@ export default new Vuex.Store({
 				commit('SET_CURRENT_PATH', dir)
 				router.push(`${ dir }`)
 			}
+		},
+		showMessage({commit}, message){
+			commit('SET_MESSAGE', message)
 		}
 	},
 	modules: {

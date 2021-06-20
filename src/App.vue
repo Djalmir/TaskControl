@@ -2,6 +2,7 @@
 	<div id="app">
 		<Menu v-if="session.user" :menuLeft="menuLeft" />
 		<router-view />
+		<Message ref="Message" />
 		<Loading />
 	</div>
 </template>
@@ -9,6 +10,7 @@
 <script>
 import {mapState} from 'vuex'
 import Menu from './components/Menu'
+import Message from './components/Message'
 import Loading from './components/Loading'
 import Axios from './services/Axios'
 export default {
@@ -20,12 +22,24 @@ export default {
 			listsArray: []
 		}
 	},
+	watch:{
+		async message(){
+			if (this.message)
+				await this.$refs.Message.show(this.message)
+		}
+	},
 	components: {
 		Menu,
+		Message,
 		Loading
 	},
 	computed: {
-		...mapState(['session', 'list', 'showingMenu'])
+		...mapState([
+			'session', 
+			'list', 
+			'showingMenu',
+			'message'
+		])
 	},
 	mounted() {
 		if(this.session.user){

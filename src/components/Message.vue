@@ -26,14 +26,15 @@ export default {
 		}
 	},
 	methods: {
-		async show(title, message) {
+		async show({title, msg}) {
 			this.showing = await true
 			this.title = await title
-			this.message = await message
+			this.message = await msg
 			document.querySelector('#messageMsg').innerText = await this.message
 			let okBt = await document.getElementById('messageOkBt')
 			return new Promise((res) => {
 				okBt.onclick = () => {
+					this.$store.dispatch('showMessage', null)
 					this.showing = false
 					res(true)
 				}
@@ -60,7 +61,7 @@ export default {
 	top: 0;
 	width: 100%;
 	height: 100vh;
-	background: #0000004d;
+	background: #000000bd;
 }
 #messageDiv {
 	margin: auto;
