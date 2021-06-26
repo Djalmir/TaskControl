@@ -26,6 +26,9 @@ export default {
 		async message(){
 			if (this.message)
 				await this.$refs.Message.show(this.message)
+		},
+		$route(){
+			this.$store.dispatch('setCurrentPath', this.$route.path)
 		}
 	},
 	components: {
@@ -57,6 +60,19 @@ export default {
 		window.addEventListener('mousemove', this.setTouchPos)
 		window.addEventListener('touchend', this.setTouchEnd)
 		window.addEventListener('mouseup', this.setTouchEnd)
+		window.addEventListener('click', e => {
+			let target = e.target
+			if (!e.target.id.includes('nameInput')) {
+				for (let i = 0; i < 3; i++) {
+					if (target.classList.contains('subMenu') || target.tagName == 'INPUT' || !target.parentElement) break
+					else target = target.parentElement
+				}
+				if (!target.classList.contains('subMenu') && target.tagName != 'INPUT') {
+					this.$store.dispatch('setShowingSubMenu', null)
+					this.$store.dispatch('setRenaming', null)
+				}
+			}
+		})
 	},
 	methods: {
 		setTouchStart(e) {

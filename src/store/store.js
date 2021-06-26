@@ -10,7 +10,7 @@ export default new Vuex.Store({
 	state: {
 		showingMenu: false,
 		showingSubMenu: null,
-		renaming: undefined,
+		renaming: null,
 		loading: false,
 		currentPath: '/',
 		message:null
@@ -48,9 +48,11 @@ export default new Vuex.Store({
 		setLoading({commit}, loading) {
 			commit('SET_LOADING', loading)
 		},
-		goTo({state, commit}, dir) {
+		setCurrentPath({commit}, dir){
+			commit('SET_CURRENT_PATH', dir)
+		},
+		goTo({state}, dir) {
 			if (state.currentPath != dir) {
-				commit('SET_CURRENT_PATH', dir)
 				router.push(`${ dir }`)
 			}
 		},

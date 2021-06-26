@@ -55,10 +55,10 @@ export default {
 		showMenu() {
 			this.$store.dispatch('setShowingMenu')
 		},
-		async logout(){
-			await this.$store.dispatch('list/setList', null)
-			await this.$store.dispatch('list/setLists', null)
-			await this.$store.dispatch('session/setUser', false)
+		logout(){
+			this.$store.dispatch('list/setList', null)
+			this.$store.dispatch('list/setLists', null)
+			this.$store.dispatch('session/setUser', false)
 			this.$store.dispatch('goTo', '/')
 		}
 	}
