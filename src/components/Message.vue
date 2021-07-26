@@ -67,6 +67,7 @@ export default {
 	margin: auto;
 	z-index: 1;
 	width: 80%;
+	max-width: 500px;
 	height: fit-content;
 	max-height: 80%;
 	box-sizing: border-box;
@@ -114,5 +115,6 @@ button {
 
 #messageOkBt:active {
 	transform: rotateX(15deg);
+	background: linear-gradient(to bottom, #0099ff, #0099ffcc);
 }
 </style>

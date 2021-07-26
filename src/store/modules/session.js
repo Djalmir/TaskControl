@@ -1,7 +1,7 @@
 export const namespaced = true
 
 export const state = {
-	user: JSON.parse(localStorage.getItem('TaskControl-user')) || ''
+	user: JSON.parse(localStorage.getItem('Razion.user')) || ''
 }
 
 export const mutations = {
@@ -9,9 +9,9 @@ export const mutations = {
 		state.user = user
 		
 		if(!user)
-			localStorage.removeItem('TaskControl-user')
-		else if(user!=localStorage.getItem('TaskControl-user'))
-			localStorage.setItem('TaskControl-user', JSON.stringify(user))
+			localStorage.removeItem('Razion.user')
+		else if(user!=localStorage.getItem('Razion.user'))
+			localStorage.setItem('Razion.user', JSON.stringify(user))
 	}
 }
 

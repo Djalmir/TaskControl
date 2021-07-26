@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '../store/store'
 
 const Axios = axios.create({
-	// baseURL: 'http://192.168.100.100:3333',
+	// baseURL: 'http://192.168.100.100:3333/',
 	baseURL: 'https://razion-apis.herokuapp.com/',
 	withCredentials: false,
 	headers: {
@@ -52,19 +52,19 @@ export default {
 	},
 
 	getLists() {
-		return Axios.get(`/list/listAll`, configs())
+		return Axios.get(`taskControl/list/listAll`, configs())
 	},
 	getListById(id) {
-		return Axios.get(`/list/listOne/${ id }`, configs())
+		return Axios.get(`taskControl/list/listOne/${ id }`, configs())
 	},
 	postList(name) {
-		return Axios.post('/list/create', {name}, configs())
+		return Axios.post('taskControl/list/create', {name}, configs())
 	},
 	putList(infos) {
 		// console.log('infos: ',infos)
-		return Axios.put(`/list/update/${ infos._id }`, infos, configs())
+		return Axios.put(`taskControl/list/update/${ infos._id }`, infos, configs())
 	},
 	deleteList(id) {
-		return Axios.delete(`/list/delete/${ id }`, configs())
+		return Axios.delete(`taskControl/list/delete/${ id }`, configs())
 	}
 }

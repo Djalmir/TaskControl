@@ -4,8 +4,8 @@
 			<div id="welcomeMsg">
 				<h1>Uma conta. Todas as vantagens!</h1>
 				<p>
-					Com uma única conta você terá acesso a todos os produtos oferecidos pela
-					<b>Razion</b> de graça!
+					Com uma única conta você tem acesso gratuito a todos os produtos oferecidos pela
+					<b>Razion</b>!
 				</p>
 			</div>
 			<div id="signupFormOuter">
