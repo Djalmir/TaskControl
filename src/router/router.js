@@ -24,7 +24,7 @@ const routes = [
 		name: 'Home',
 		component: Home,
 		beforeEnter(to, from, next) {
-			if(store.state.session.user)
+			if (store.state.session.user)
 				next()
 			else
 				next('/')
@@ -36,7 +36,7 @@ const routes = [
 		component: List,
 		props: true,
 		beforeEnter(to, from, next) {
-			if(store.state.session.user){
+			if (store.state.session.user) {
 				store.dispatch('list/setList', to.params.id).then(list => {
 					to.params.list = list
 					next()
@@ -57,9 +57,12 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 	let showingMenu = store.state.showingMenu
 	let renaming = store.state.renaming
-	if (showingMenu) store.dispatch('setShowingMenu')
-	if (renaming) next(false)
-	else next()
+	if (showingMenu)
+		store.dispatch('setShowingMenu')
+	if (renaming)
+		next(false)
+	else
+		next()
 })
 
 export default router

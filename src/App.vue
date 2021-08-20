@@ -29,6 +29,7 @@ export default {
 		},
 		$route(){
 			this.$store.dispatch('setCurrentPath', this.$route.path)
+			localStorage.setItem('currentPath', this.$route.path)
 		}
 	},
 	components: {
